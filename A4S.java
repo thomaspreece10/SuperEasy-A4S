@@ -193,6 +193,20 @@ public class A4S {
 			arduino.pinMode(Integer.parseInt(parts[1]), "input".equals(parts[2]) ? Firmata.INPUT : Firmata.OUTPUT);
 		} else if (cmd.equals("digitalWrite")) {
 			arduino.digitalWrite(Integer.parseInt(parts[1]), "high".equals(parts[2]) ? Firmata.HIGH : Firmata.LOW);
+		} else if (cmd.equals("analogWrite"))  {
+			if (Integer.parseInt(parts[2])>255) {
+				parts[2] = "255";
+			}else if (Integer.parseInt(parts[2])<0) {
+				parts[2] = "0";
+			}
+			arduino.analogWrite(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+		} else if (cmd.equals("servoWrite")) {
+			if (Integer.parseInt(parts[2])>180) {
+				parts[2] = "180";
+			}else if (Integer.parseInt(parts[2])<0) {
+				parts[2] = "0";
+			}		
+			arduino.servoWrite(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
 		} else if (cmd.equals("poll")) {
 			// set response to a collection of sensor, value pairs, one pair per line
 			// in this example there is only one sensor, "volume"
