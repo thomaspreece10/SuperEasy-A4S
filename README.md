@@ -16,3 +16,8 @@ You need to have Java installed on your system.
 6. Run the Scratch 2 offline editor or open Scratch 2 online editor.
 7. If using Scratch 2 online editor click "File" menu and click "upload from computer". If using Scratch 2 offline editor click "File" menu and click "open". Select ImportBlocks.sb2 from the examples folder.
 9. You should see the A4S extension and blocks appear in the "More Blocks" category in the Scratch editor. If the A4S server is running, there will be a green dot next to the "A4S" title. 
+
+##Modifying The Code
+
+Most of the code is in Java. 
+The HelperApp (main.exe/main.bmx) is coded in BlitzMax (http://www.blitzmax.com/) and requires BlitzMax to compile. It is also dependant on wxmax a module for Blitzmax (https://code.google.com/p/wxmax/).
