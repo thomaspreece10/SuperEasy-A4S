@@ -20,4 +20,4 @@ You need to have Java installed on your system.
 ##Modifying The Code
 
 Most of the code is in Java. 
-The HelperApp (main.exe/main.bmx) is coded in BlitzMax (http://www.blitzmax.com/) and requires BlitzMax to compile. It is also dependant on [wxmax](https://code.google.com/p/wxmax/), a module for Blitzmax.
+The HelperApp (main.exe/main.bmx) is coded in [BlitzMax](http://www.blitzmax.com/) and requires BlitzMax to compile. It is also dependant on [wxmax](https://code.google.com/p/wxmax/), a module for Blitzmax.
