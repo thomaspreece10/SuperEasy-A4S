@@ -139,7 +139,6 @@ Type A4SHelperFrameType Extends wxFrame
 		Self.EnableCloseButton(False)
 		
 		Self.ConsoleText.AppendText("Running Server on "+Port+" ~n")
-		ChangeDir("C:\Users\Tom\Downloads\ScratchArduino\A4S-master\A4S-master")
 		Self.ServerProcess = createprocess("java -d32 -jar A4S.jar "+Port)
 		Local s:String
 		
