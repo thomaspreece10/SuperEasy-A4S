@@ -45,11 +45,11 @@ public class A4S {
 			try {
 				while (serialPort.getInputStream().available() > 0) {
 					int n = serialPort.getInputStream().read();
-					//System.out.println(">" + n);
 					arduino.processInput(n);
 				}
 			} catch (IOException err) {
 				System.err.println(err);
+				System.err.flush();
 			}
 		}
 	}
@@ -61,6 +61,7 @@ public class A4S {
 				serialPort.getOutputStream().write(val);
 			} catch (IOException err) {
 				System.err.println(err);
+				System.err.flush();
 			}
 		}
 	}
@@ -69,11 +70,14 @@ public class A4S {
 		try {
 			if (args.length < 1) {
 				System.err.println("Please specify serial port on command line.");
+				System.err.flush();
 				return;
 			}
 			CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(args[0]);
 			CommPort commPort = portIdentifier.open("A4S",2000);
-
+			
+			
+			
 			if ( commPort instanceof SerialPort )
 			{
 				serialPort = (SerialPort) commPort;
@@ -94,16 +98,20 @@ public class A4S {
 			else
 			{
 				System.out.println("Error: Only serial ports are handled by this example.");
+				System.out.flush();
 				return;
 			}
 		} catch (Exception e) {
 			System.err.println(e);
+			System.err.flush();
 			return;
 		}
 		
 		InetAddress addr = InetAddress.getLocalHost();
-		System.out.println("HTTPExtensionExample helper app started on " + addr.toString());
-		
+		System.out.println("HTTPScratchExtension helper app started on " + addr.toString() +":"+PORT);
+		System.out.flush();
+		System.out.println("Ready");
+		System.out.flush();
 		ServerSocket serverSock = new ServerSocket(PORT);
 		while (true) {
 			Socket sock = serverSock.accept();
@@ -129,6 +137,7 @@ public class A4S {
 			int bytes_read = sockIn.read(buf, 0, buf.length);
 			if (bytes_read < 0) {
 				System.out.println("Socket closed; no HTTP header.");
+				System.out.flush();
 				return;
 			}
 			httpBuf += new String(Arrays.copyOf(buf, bytes_read));
@@ -137,11 +146,13 @@ public class A4S {
 		String header = httpBuf.substring(0, i);
 		if (header.indexOf("GET ") != 0) {
 			System.out.println("This server only handles HTTP GET requests.");
+			System.out.flush();
 			return;
 		}
 		i = header.indexOf("HTTP/1");
 		if (i < 0) {
 			System.out.println("Bad HTTP GET header.");
+			System.out.flush();
 			return;
 		}
 		header = header.substring(5, i - 1);
@@ -227,7 +238,7 @@ public class A4S {
 
 	private static void doHelp() {
 		// Optional: return a list of commands understood by this server
-		String help = "HTTP Extension Example Server<br><br>";
+		String help = "HTTP Scratch Extension Server Running<br><br>";
 		sendResponse(help);
 	}
 
