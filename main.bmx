@@ -27,7 +27,7 @@ Const ST:Int = 3
 Const RPB2:Int = 4
 Const SSB2:Int = 5
 Const TLOG:Int =6
-Const PROGRAMICON:String = "microcontroller.ico"
+Const PROGRAMICON:String = "Resources\microcontroller.ico"
 Const EXPLAINTEXT1:String = "STEP 1: Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2. ~n~n"+ ..
 "Firstly select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong COM port the program will fail to upload so a trial and error approach may work to find out which COM port your Arduino is.~n~n"+..
 "Next select the model of your Arduino board. It should say the model name on the actual board itself."+..
