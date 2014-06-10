@@ -1,6 +1,5 @@
 Framework wx.wxApp
 Import wx.wxTimer
-'Import wx.wxctb 
 Import wx.wxStaticText
 Import wx.wxTextCtrl
 Import wx.wxComboBox
@@ -54,7 +53,7 @@ Type A4SHelperAppType Extends wxApp
 	Method OnInit:Int()	
 		wxImage.AddHandler( New wxICOHandler)			
 
-		A4SHelperFrame = A4SHelperFrameType(New A4SHelperFrameType.Create(Null , wxID_ANY, "Arduino Scratch Server Starter", -1, -1, 600, 420))
+		A4SHelperFrame = A4SHelperFrameType(New A4SHelperFrameType.Create(Null , wxID_ANY, "Arduino Scratch Server Starter", -1, -1, 600, 380))
 		
 		Return True
 
