@@ -1,6 +1,6 @@
 Framework wx.wxApp
 Import wx.wxTimer
-Import wx.wxctb 
+'Import wx.wxctb 
 Import wx.wxStaticText
 Import wx.wxTextCtrl
 Import wx.wxComboBox
@@ -9,6 +9,8 @@ Import wx.wxButton
 Import wx.wxFrame
 Import wx.wxMessageDialog
 Import wx.wxNotebook 
+
+Import BaH.Serial
 
 Import brl.linkedlist 
 Import pub.freeprocess
@@ -30,7 +32,7 @@ Const TLOG:Int =6
 Const PROGRAMICON:String = "Resources\microcontroller.ico"
 Const EXPLAINTEXT1:String = "STEP 1: Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2. ~n~n"+ ..
 "Firstly select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong COM port the program will fail to upload so a trial and error approach may work to find out which COM port your Arduino is.~n~n"+..
-"Next select the model of your Arduino board. It should say the model name on the actual board itself."+..
+"Next select the model of your Arduino board. It should say the model name on the actual board itself.~n~n"+..
 "Finally click upload and wait for the 'Status of Upload' to say finished then move onto step 2"
 
 Const EXPLAINTEXT2:String = "STEP 2: Now we need to start the helper application that communicates between the Arduino and scratch. This must be running the whole while you are using Arduino in your scratch sketch.~n~n"+..
@@ -52,7 +54,7 @@ Type A4SHelperAppType Extends wxApp
 	Method OnInit:Int()	
 		wxImage.AddHandler( New wxICOHandler)			
 
-		A4SHelperFrame = A4SHelperFrameType(New A4SHelperFrameType.Create(Null , wxID_ANY, "Arduino Scratch Server Starter", -1, -1, 600, 380))
+		A4SHelperFrame = A4SHelperFrameType(New A4SHelperFrameType.Create(Null , wxID_ANY, "Arduino Scratch Server Starter", -1, -1, 600, 420))
 		
 		Return True
 
@@ -114,7 +116,7 @@ Type A4SHelperFrameType Extends wxFrame
 		Local S1_TextPanelvbox:wxBoxSizer = New wxBoxSizer.Create(wxVERTICAL)	
 		Local S1_ExplainText1:wxStaticText = 	New wxStaticText.Create(S1_TextPanel , wxID_ANY , EXPLAINTEXT1 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
 		
-		S1_TextPanel.setbackgroundcolour(New wxColour.createcolour(255,255,255))
+		S1_TextPanel.setbackgroundcolour(New wxColour.createcolour(240,240,240))
 		S1_TextPanelvbox.Add(S1_ExplainText1 , 1 , wxEXPAND | wxALL , 4 )
 		S1_TextPanel.SetSizer(S1_TextPanelvbox)
 		
@@ -152,7 +154,9 @@ Type A4SHelperFrameType Extends wxFrame
 
 		UploadButton = New wxButton.Create(UploadPanel , SSB , "Start Upload")
 		UploadButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
-		UploadButton.setfont(New wxFont.CreateWithAttribs(12,0,0,0)) 
+		Local UploadFont:wxFont = UploadButton.GetFont()
+		UploadFont.SetPointSize(12)
+		UploadButton.setfont(UploadFont) 
 
 		
 		UploadPanelvbox.Add(UploadButton , 0 , wxEXPAND | wxALL , 4 )
@@ -170,7 +174,7 @@ Type A4SHelperFrameType Extends wxFrame
 		Local S2_TextPanelvbox:wxBoxSizer = New wxBoxSizer.Create(wxVERTICAL)	
 		Local S2_ExplainText2:wxStaticText = 	New wxStaticText.Create(S2_TextPanel , wxID_ANY , EXPLAINTEXT2 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
 		
-		S2_TextPanel.setbackgroundcolour(New wxColour.createcolour(255,255,255))
+		S2_TextPanel.setbackgroundcolour(New wxColour.createcolour(240,240,240))
 		S2_TextPanelvbox.Add(S2_ExplainText2 , 1 , wxEXPAND | wxALL , 4 )
 		S2_TextPanel.SetSizer(S2_TextPanelvbox)
 
@@ -202,8 +206,9 @@ Type A4SHelperFrameType Extends wxFrame
 		ServerButton = New wxButton.Create(MainPanel , SSB2 , "Start Helper App")	
 		MainPanelvbox.Add(ServerButton , 0 , wxEXPAND | wxALL , 4 )
 		ServerButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
-		ServerButton.setfont(New wxFont.CreateWithAttribs(12,0,0,0)) 
-
+		Local ServerFont:wxFont = ServerButton.GetFont()
+		ServerFont.SetPointSize(12)
+		ServerButton.setfont(ServerFont) 
 					
 		MainPanel.SetSizer(MainPanelvbox)
 		
@@ -266,7 +271,7 @@ Type A4SHelperFrameType Extends wxFrame
 				MessageBox.Free()	
 				Return 
 			EndIf 
-			A4SHelperFrame.ProcessUpload(Port,Board)
+			A4SHelperFrame.ProcessUpload(ExtractPort(Port),Board)
 		Else
 			MessageBox = New wxMessageDialog.Create(Null, "Cancelling now may cause damage to your Arduino if you do not wait for it to finish. Do you still wish to cancel?" , "Question", wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION)
 			If MessageBox.ShowModal() = wxID_YES Then
@@ -436,7 +441,7 @@ Type A4SHelperFrameType Extends wxFrame
 				MessageBox.Free()	
 				Return 
 			EndIf 
-			A4SHelperFrame.ProcessServer(Port)
+			A4SHelperFrame.ProcessServer(ExtractPort(Port))
 		Else
 			A4SHelperFrame.A4SHelperLog.AddText("Process Terminated By User~n")	
 			A4SHelperFrame.StatusText2.SetLabel("Stopped By User")
@@ -445,6 +450,7 @@ Type A4SHelperFrameType Extends wxFrame
 	End Function 
 	
 	Method ProcessServer(Port:String)
+		
 		A4SHelperLog.AddText("===============Starting Helper App===============~n")	
 		StatusText2.SetLabel("Starting...")
 		StatusText2.SetForegroundColour(New wxColour.createcolour(255,140,0))
@@ -490,7 +496,7 @@ Type A4SHelperFrameType Extends wxFrame
 		Local COMPortsList:TList = GetPorts()
 		A4SHelperLog.AddText("===============Refreshing Ports===============~n")	
 
-		
+	
 		PortComboBox.Clear()
 		PortComboBox2.Clear()
 	
@@ -543,10 +549,26 @@ Type A4SHelperLogType Extends wxFrame
 	
 End Type
 
-
+Function ExtractPort:String(Text:String)
+	For a=1 To Len(Text)
+		If Mid(Text,a,1)="-" Then
+			Return Left(Text,a-2)
+		EndIf 
+	Next
+End Function
 
 Function GetPorts:TList()
+	Local COMPortsList:TList = CreateList()
+	Local Ports:TList = TSerial.listPorts()
 
+	For Local Port:TSerialPortInfo = EachIn Ports
+		If Left(Port.portName,3)="COM" Then
+			ListAddFirst(COMPortsList,Port.portName+" - "+Port.productName)
+		EndIf
+	Next
+
+	Return COMPortsList
+Rem
 	Local COMPortsList:TList = CreateList()
 	Local Port:wxSerialPort = wxSerialPort(New wxSerialPort.Create())
 	Local a:Int
@@ -571,7 +593,7 @@ Function GetPorts:TList()
 	Next
 	
 	Return COMPortsList
-
+EndRem
 End Function
 
 
