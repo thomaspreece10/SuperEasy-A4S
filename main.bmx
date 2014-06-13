@@ -1,4 +1,5 @@
-Framework wx.wxApp
+Framework BRL.StandardIO
+Import wx.wxApp
 Import wx.wxTimer
 Import wx.wxStaticText
 Import wx.wxTextCtrl
@@ -16,7 +17,6 @@ Import pub.freeprocess
 Import BRL.Retro
 Import BRL.PolledInput
 Import BRL.FileSystem
-Import BRL.StandardIO
 Import BRL.Blitz
 Import BRL.System
 
@@ -53,7 +53,7 @@ Type A4SHelperAppType Extends wxApp
 	Method OnInit:Int()	
 		wxImage.AddHandler( New wxICOHandler)			
 
-		A4SHelperFrame = A4SHelperFrameType(New A4SHelperFrameType.Create(Null , wxID_ANY, "Arduino Scratch Server Starter", -1, -1, 600, 380))
+		A4SHelperFrame = A4SHelperFrameType(New A4SHelperFrameType.Create(Null , wxID_ANY, "Arduino Scratch Server Starter", -1, -1, 600, 430))
 		
 		Return True
 
@@ -449,7 +449,8 @@ Type A4SHelperFrameType Extends wxFrame
 	End Function 
 	
 	Method ProcessServer(Port:String)
-		
+		Local MessageBox:wxMessageDialog 
+			
 		A4SHelperLog.AddText("===============Starting Helper App===============~n")	
 		StatusText2.SetLabel("Starting...")
 		StatusText2.SetForegroundColour(New wxColour.createcolour(255,140,0))
@@ -460,6 +461,19 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		A4SHelperLog.AddText("Running Helper App on "+Port+" ~n")
 		Self.ServerProcess = createprocess("java -d32 -jar A4S.jar "+Port)
+		
+		If ServerProcess = Null Then 
+			MessageBox = New wxMessageDialog.Create(Null , "Helper App could not start. Please make sure you have java installed on your system!" , "Error" , wxOK | wxICON_ERROR)
+			MessageBox.ShowModal()
+			MessageBox.Free()	
+			ServerButton.SetLabel("Start Helper App")
+			ServerButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))			
+			StatusText2.SetLabel("Error (see log)")
+			StatusText2.SetForegroundColour(New wxColour.createcolour(255,0,0))
+			A4SHelperLog.AddText("Helper App could not start. ~nPlease make sure you have java installed on your system. Also please make sure that the java executable files have been added to PATH environment variable. The PATH variable will be set correctly if you can run java.exe from a commandline. ~n")
+			Return 
+		EndIf
+		
 		Local s:String
 		
 		Repeat
