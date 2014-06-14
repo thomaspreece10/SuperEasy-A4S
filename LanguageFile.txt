@@ -16,6 +16,7 @@ Status of Helper App:
 &Debug Log
 &File
 &View
+&About
 Start Upload
 Finished Upload. Upload Again?
 Stop

@@ -9,6 +9,7 @@ Import wx.wxButton
 Import wx.wxFrame
 Import wx.wxMessageDialog
 Import wx.wxNotebook 
+Import wx.wxAboutBox
 
 Import BaH.Serial
 
@@ -28,6 +29,7 @@ Const ST:Int = 3
 Const RPB2:Int = 4
 Const SSB2:Int = 5
 Const TLOG:Int =6
+Const AID:Int = 7
 Const PROGRAMICON:String = "Resources\microcontroller.ico"
 
 Global EXPLAINTEXT1:String
@@ -47,6 +49,7 @@ Global MENU1:String
 Global MENU2:String
 Global MENU3:String
 Global MENU4:String
+Global MENU5:String
 Global BUTTON1:String
 Global BUTTON2:String
 Global BUTTON3:String
@@ -94,6 +97,7 @@ If FileType("LanguageFile.txt")=1 Then
 	MENU2 = ReadLine(ReadLanguage)
 	MENU3 = ReadLine(ReadLanguage)
 	MENU4 = ReadLine(ReadLanguage)
+	MENU5 = ReadLine(ReadLanguage)
 	BUTTON1 = ReadLine(ReadLanguage)
 	BUTTON2 = ReadLine(ReadLanguage)
 	BUTTON3 = ReadLine(ReadLanguage)
@@ -152,6 +156,7 @@ Else
 	MENU2 = "&Debug Log"
 	MENU3 = "&File"
 	MENU4 = "&View"
+	MENU5 = "&About"
 	BUTTON1 = "Start Upload"
 	BUTTON2 = "Finished Upload. Upload Again?"
 	BUTTON3 = "Stop"
@@ -225,7 +230,9 @@ Type A4SHelperFrameType Extends wxFrame
 	Method OnInit()	
 		MenuBar = New wxMenuBar.Create()
 		Local FileMenu:wxMenu = New wxMenu.Create()
+		FileMenu.Append(AID, MENU5)
 		FileMenu.Append(wxID_CLOSE, MENU1)
+		
 		Local ViewMenu:wxMenu = New wxMenu.Create()
 		ViewMenu.Append(TLOG, MENU2)
 		MenuBar.Append(FileMenu, MENU3)
@@ -389,9 +396,26 @@ Type A4SHelperFrameType Extends wxFrame
 			
 		Connect(TLOG , wxEVT_COMMAND_MENU_SELECTED, ShowLogFun)
 		Connect(wxID_CLOSE, wxEVT_COMMAND_MENU_SELECTED, CloseFun)			
+		Connect(AID, wxEVT_COMMAND_MENU_SELECTED, AboutFun)	
 			
 		ConnectAny(wxEVT_CLOSE , CloseFun)
 	End Method
+	
+	Function AboutFun(event:wxEvent)
+		Local Icon:wxIcon = New wxIcon.CreateFromFile(PROGRAMICON,wxBITMAP_TYPE_ICO)
+		Local Info:wxAboutDialogInfo = New wxAboutDialogInfo.Create()
+		Info.seticon(Icon)
+		Info.setDescription("This is an application that handles automatically all the complicated parts of using Arduino with Scratch")
+
+		Info.addDeveloper("Thomas Preece")
+		Info.addDocWriter("Thomas Preece")
+		Info.addDocWriter("Simon Monk")
+
+		Info.setName("A4S")
+		Info.setVersion("V1.0")
+		Info.setWebsite("http://thomaspreece.com","Lead developers personal website")
+		wxAboutBox(Info)
+	End Function
 	
 	Function ShowLogFun(event:wxEvent)
 		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
