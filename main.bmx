@@ -12,6 +12,7 @@ Import wx.wxNotebook
 Import wx.wxAboutBox
 
 Import BaH.Serial
+Import BaH.Volumes
 
 Import brl.linkedlist 
 Import pub.freeprocess
@@ -30,6 +31,9 @@ Const RPB2:Int = 4
 Const SSB2:Int = 5
 Const TLOG:Int =6
 Const AID:Int = 7
+Const PCB1:Int = 8
+Const PCB2:Int = 9
+Const BCB:Int = 10
 Const PROGRAMICON:String = "Resources\microcontroller.ico"
 
 Global EXPLAINTEXT1:String
@@ -69,6 +73,8 @@ Global STATUS6:String
 Global STATUS7:String
 Global STATUS8:String
 Global STATUS9:String
+
+
 
 If FileType("LanguageFile.txt")=1 Then 
 	ReadLanguage = ReadFile("LanguageFile.txt")
@@ -181,6 +187,45 @@ Else
 
 EndIf 
 
+Global PortSelection:Int = 0
+Global BoardSelection:Int = 0
+
+'Check if settings file available
+
+If FileType(GetUserAppDir()+"\A4S")=2 Then
+	'Continue
+Else
+	'Create Directory
+	CreateDir(GetUserAppDir()+"\A4S")
+	'Check that directory actually created
+	If FileType(GetUserAppDir()+"\A4S")=2 Then
+		'Continue
+	Else	
+		Notify("Error Creating User Folder",True)
+		Return 
+	EndIf
+EndIf 
+
+If FileType(GetUserAppDir()+"\A4S\Settings.txt")=1 Then 
+	'Continue
+Else 
+	'CreateFile
+	UpdateSettings()
+	If FileType(GetUserAppDir()+"\A4S\Settings.txt")=1 Then 
+	
+	Else
+		Notify("Error Creating User settings file",True)
+		Return 		
+	EndIf
+EndIf
+
+Local SettingsFile:TStream 
+SettingsFile = ReadFile(GetUserAppDir()+"\A4S\Settings.txt")
+PortSelection = Int(ReadLine(SettingsFile))
+BoardSelection = Int(ReadLine(SettingsFile))
+CloseFile(SettingsFile)
+
+
 Global BOARDCHOICES:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8","16 - Microduino Core+ (644)","17 - Freematics OBD-II Adapter"]
 
 Global A4SHelperApp:A4SHelperAppType
@@ -289,7 +334,7 @@ Type A4SHelperFrameType Extends wxFrame
 
 		Line1hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
 		Local PText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , LABEL1 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
-		PortComboBox = New wxComboBox.Create(UploadPanel , wxID_ANY , "" , Null , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)
+		PortComboBox = New wxComboBox.Create(UploadPanel , PCB1 , "" , Null , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)
 		Local RefreshPortsButton:wxButton = New wxButton.Create(UploadPanel , RPB , LABEL2)	
 
 		Line1hbox.Add(PText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
@@ -298,7 +343,7 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		Line2hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
 		Local BText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , LABEL3 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
-		BoardComboBox = New wxComboBox.Create(UploadPanel , wxID_ANY , BOARDCHOICES[0] , BOARDCHOICES , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)		
+		BoardComboBox = New wxComboBox.Create(UploadPanel , BCB , BOARDCHOICES[BoardSelection] , BOARDCHOICES , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)		
 		
 		Line2hbox.Add(BText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		Line2hbox.Add(BoardComboBox , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )		
@@ -349,7 +394,7 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		Line1hbox2:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
 		Local PText2:wxStaticText = New wxStaticText.Create(MainPanel , wxID_ANY , LABEL1 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
-		PortComboBox2 = New wxComboBox.Create(MainPanel , wxID_ANY , "" , Null , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)
+		PortComboBox2 = New wxComboBox.Create(MainPanel , PCB2 , "" , Null , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)
 		Local RefreshPortsButton2:wxButton = New wxButton.Create(MainPanel , RPB2 , LABEL2)	
 
 		Line1hbox2.Add(PText2 , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
@@ -389,6 +434,11 @@ Type A4SHelperFrameType Extends wxFrame
 		Self.center()
 		Self.show()		
 		
+		Connect(PCB1 , wxEVT_COMMAND_COMBOBOX_SELECTED , PortUpdatedFun , "1")
+		Connect(PCB2 , wxEVT_COMMAND_COMBOBOX_SELECTED , PortUpdatedFun , "2")
+		Connect(BCB , wxEVT_COMMAND_COMBOBOX_SELECTED , BoardUpdatedFun )		
+		
+		
 		Connect(RPB , wxEVT_COMMAND_BUTTON_CLICKED , UpdatePortsFun)
 		Connect(RPB2 , wxEVT_COMMAND_BUTTON_CLICKED , UpdatePortsFun)
 		Connect(SSB , wxEVT_COMMAND_BUTTON_CLICKED , UploadFun)
@@ -400,6 +450,41 @@ Type A4SHelperFrameType Extends wxFrame
 			
 		ConnectAny(wxEVT_CLOSE , CloseFun)
 	End Method
+	
+	Function BoardUpdatedFun(event:wxEvent)
+		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
+		Local Selection:Int = A4SHelperFrame.BoardComboBox.GetSelection()
+		
+		If Selection = wxNOT_FOUND Then
+
+		Else
+			BoardSelection = Selection
+			UpdateSettings()
+		EndIf 
+		
+	End Function
+	
+	Function PortUpdatedFun(event:wxEvent)
+		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
+		Local ComboNum = Int(String(event.userData))
+		Local Selection:Int
+		
+		If ComboNum = 1 Then 
+			Selection = A4SHelperFrame.PortComboBox.GetSelection()
+		Else
+			Selection = A4SHelperFrame.PortComboBox2.GetSelection()
+		EndIf
+		
+		If Selection = wxNOT_FOUND Then
+		
+		Else
+			PortSelection = Selection
+			UpdateSettings()
+			A4SHelperFrame.PortComboBox.SetSelection(Selection)
+			A4SHelperFrame.PortComboBox2.SetSelection(Selection)
+		EndIf 
+		
+	End Function
 	
 	Function AboutFun(event:wxEvent)
 		Local Icon:wxIcon = New wxIcon.CreateFromFile(PROGRAMICON,wxBITMAP_TYPE_ICO)
@@ -715,8 +800,14 @@ Type A4SHelperFrameType Extends wxFrame
 			PortComboBox.Append(Port)
 			PortComboBox2.Append(Port)
 		Next
-		PortComboBox.SetSelection(0)
-		PortComboBox2.SetSelection(0)
+		Print CountList(COMPortsList)
+		Print PortSelection
+		If CountList(COMPortsList)-1<PortSelection Then 
+			PortSelection=0
+		EndIf 
+		
+		PortComboBox.SetSelection(PortSelection)
+		PortComboBox2.SetSelection(PortSelection)
 		
 		If ListIsEmpty(COMPortsList) Then
 			A4SHelperLog.AddText("No COM ports found. ~nThis program will not find ports that are currently in use by another program. Please close any open programs that are using the port.~n")		
@@ -807,4 +898,12 @@ Rem
 EndRem
 End Function
 
+
+Function UpdateSettings()
+	Local SettingsFile:TStream
+	SettingsFile = WriteFile(GetUserAppDir()+"\A4S\Settings.txt")
+	WriteLine(SettingsFile,PortSelection)
+	WriteLine(SettingsFile,BoardSelection)
+	CloseFile(SettingsFile)
+End Function
 
