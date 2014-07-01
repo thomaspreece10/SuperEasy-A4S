@@ -727,8 +727,20 @@ Type A4SHelperFrameType Extends wxFrame
 				Else
 					Totals = Totals + s
 					If Instr(Totals, "avrdude.exe done.  Thank you.") Then
-						Status.SetLabel(STATUS5)
-						Status.SetForegroundColour(New wxColour.createcolour(0,120,0))							
+						If Status.GetLabel()=STATUS4 Then
+						
+						else
+							Status.SetLabel(STATUS5)
+							Status.SetForegroundColour(New wxColour.createcolour(0,120,0))							
+						EndIf 
+					ElseIf Instr(Totals,"not in sync") Then
+						If Status.GetLabel()=STATUS3 Then 
+						
+						Else
+							Console.AddText("Arduino out of sync!.~n")
+							Status.SetLabel(STATUS4)
+							Status.SetForegroundColour(New wxColour.createcolour(255,0,0))							
+						EndIf 
 					ElseIf Instr(Totals,"Writing") Then 
 						If Status.GetLabel()=STATUS3 Then 
 						
