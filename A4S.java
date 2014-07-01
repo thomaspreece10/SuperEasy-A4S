@@ -39,6 +39,7 @@ public class A4S {
 	private static Firmata arduino;
 	
 	private static SerialReader reader;
+	private static int Baud = -1; //Default Baud Rate
 	
 	public static class SerialReader implements SerialPortEventListener {
 		public void serialEvent(SerialPortEvent e) {
@@ -68,11 +69,29 @@ public class A4S {
 
 	public static void main(String[] args) throws IOException {
 		try {
+			
 			if (args.length < 1) {
 				System.err.println("Please specify serial port on command line.");
 				System.err.flush();
 				return;
+			}else if (args.length < 2){
+				System.err.println("Please specify baud rate for serial port on command line.");
+				System.err.println("Baud rate can be any one of 300 1200 2400 4800 9600 14400 19200 28800 38400 57600 115200. The typical value is 57600");
+				System.err.flush();
+				return;				
+			}else {
+				Baud = Integer.parseInt(args[1]);
 			}
+		
+			if (Baud!=300 && Baud!=1200 && Baud!=2400 && Baud!=4800 && Baud!=9600 && Baud!=14400 && Baud!=19200 && Baud!=28800 && Baud!=38400 && Baud!=57600 && Baud!=115200){
+				System.err.println("Invalid baud rate");
+				System.err.println("Baud rate can be any one of 300 1200 2400 4800 9600 14400 19200 28800 38400 57600 115200. The typical value is 57600");
+				System.err.flush();
+				return;				
+			}
+			System.out.println("Baud: "+Baud);
+			System.out.flush();
+			
 			CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(args[0]);
 			CommPort commPort = portIdentifier.open("A4S",2000);
 			
@@ -81,7 +100,7 @@ public class A4S {
 			if ( commPort instanceof SerialPort )
 			{
 				serialPort = (SerialPort) commPort;
-				serialPort.setSerialPortParams(57600,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
+				serialPort.setSerialPortParams(Baud,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
 
 				arduino = new Firmata(new FirmataWriter());
 				reader = new SerialReader();
