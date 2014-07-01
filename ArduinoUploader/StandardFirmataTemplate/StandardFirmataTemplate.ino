@@ -576,7 +576,7 @@ void systemResetCallback()
       setPinModeCallback(i, ANALOG);
     } else {
       // sets the output to 0, configures portConfigInputs
-      setPinModeCallback(i, OUTPUT);
+      setPinModeCallback(i, INPUT);
     }
   }
   // by default, do not report any analog inputs
@@ -605,7 +605,7 @@ void setup()
   Firmata.attach(START_SYSEX, sysexCallback);
   Firmata.attach(SYSTEM_RESET, systemResetCallback);
 
-  Firmata.begin(57600);
+  Firmata.begin(##BaudRatePlaceHolder##);
   systemResetCallback();  // reset to default config
 }
 
