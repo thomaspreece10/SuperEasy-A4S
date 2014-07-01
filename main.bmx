@@ -34,6 +34,9 @@ Const AID:Int = 7
 Const PCB1:Int = 8
 Const PCB2:Int = 9
 Const BCB:Int = 10
+Const TADO:Int = 11
+Const BACB:Int = 12
+Const BACB2:Int = 13
 Const PROGRAMICON:String = "Resources\microcontroller.ico"
 
 Global EXPLAINTEXT1:String
@@ -54,6 +57,7 @@ Global MENU2:String
 Global MENU3:String
 Global MENU4:String
 Global MENU5:String
+Global MENU6:String 
 Global BUTTON1:String
 Global BUTTON2:String
 Global BUTTON3:String
@@ -64,6 +68,7 @@ Global ERROR3:String
 Global ERROR4:String
 Global ERROR5:String
 Global ERROR6:String
+Global ERROR7:String
 Global STATUS1:String
 Global STATUS2:String
 Global STATUS3:String
@@ -104,6 +109,7 @@ If FileType("LanguageFile.txt")=1 Then
 	MENU3 = ReadLine(ReadLanguage)
 	MENU4 = ReadLine(ReadLanguage)
 	MENU5 = ReadLine(ReadLanguage)
+	MENU6 = ReadLine(ReadLanguage)
 	BUTTON1 = ReadLine(ReadLanguage)
 	BUTTON2 = ReadLine(ReadLanguage)
 	BUTTON3 = ReadLine(ReadLanguage)
@@ -114,6 +120,7 @@ If FileType("LanguageFile.txt")=1 Then
 	ERROR4 = ReadLine(ReadLanguage)
 	ERROR5 = ReadLine(ReadLanguage)
 	ERROR6 = ReadLine(ReadLanguage)
+	ERROR7 = ReadLine(ReadLanguage)
 	STATUS1 = ReadLine(ReadLanguage)
 	STATUS2 = ReadLine(ReadLanguage)
 	STATUS3 = ReadLine(ReadLanguage)
@@ -163,6 +170,7 @@ Else
 	MENU3 = "&File"
 	MENU4 = "&View"
 	MENU5 = "&About"
+	MENU6 = "&Toggle Advanced Options"
 	BUTTON1 = "Start Upload"
 	BUTTON2 = "Finished Upload. Upload Again?"
 	BUTTON3 = "Stop"
@@ -174,6 +182,7 @@ Else
 	ERROR4 = "Helper App could not start. Please make sure you have java installed on your system!"
 	ERROR5 = "ArduinoUploader could not start."
 	ERROR6 = "Error"
+	ERROR7 = "Failed to generate Firmata code"
 	
 	STATUS1 = "Not Started Yet"
 	STATUS2 = "Stopped"
@@ -189,6 +198,7 @@ EndIf
 
 Global PortSelection:Int = 0
 Global BoardSelection:Int = 0
+Global BaudSelection:Int = 9
 
 'Check if settings file available
 
@@ -223,10 +233,12 @@ Local SettingsFile:TStream
 SettingsFile = ReadFile(GetUserAppDir()+"\A4S\Settings.txt")
 PortSelection = Int(ReadLine(SettingsFile))
 BoardSelection = Int(ReadLine(SettingsFile))
+BaudSelection = Int(ReadLine(SettingsFile))
 CloseFile(SettingsFile)
 
 
 Global BOARDCHOICES:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8","16 - Microduino Core+ (644)","17 - Freematics OBD-II Adapter"]
+Global BAUDCHOICES:String[] = ["300","1200","2400", "4800", "9600", "14400", "19200", "28800", "38400", "57600", "115200"]
 
 Global A4SHelperApp:A4SHelperAppType
 A4SHelperApp = New A4SHelperAppType
@@ -258,11 +270,15 @@ Type A4SHelperFrameType Extends wxFrame
 
 	Field PortComboBox:wxComboBox 
 	Field BoardComboBox:wxComboBox 
+	Field BaudComboBox:wxComboBox 
+	Field BaText:wxStaticText
 
 	Field UploadButton:wxButton 
 	
 	Field PortComboBox2:wxComboBox 	
 	Field ServerButton:wxButton
+	Field BaudComboBox2:wxComboBox 
+	Field BaText2:wxStaticText	
 	Field UploadProcess:TProcess
 	Field ServerProcess:TProcess
 
@@ -270,7 +286,9 @@ Type A4SHelperFrameType Extends wxFrame
 	Field StatusText2:wxStaticText
 	
 	Field A4SHelperLog:A4SHelperLogType
-	Field MenuBar:wxMenuBar 
+	Field MenuBar:wxMenuBar
+	
+	Field AdvancedOptionsShown = True   
 
 	Method OnInit()	
 		MenuBar = New wxMenuBar.Create()
@@ -280,6 +298,7 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		Local ViewMenu:wxMenu = New wxMenu.Create()
 		ViewMenu.Append(TLOG, MENU2)
+		ViewMenu.Append(TADO, MENU6)
 		MenuBar.Append(FileMenu, MENU3)
 		MenuBar.Append(ViewMenu, MENU4)
 		Self.SetMenuBar(MenuBar)
@@ -352,6 +371,14 @@ Type A4SHelperFrameType Extends wxFrame
 		UploadPanelvbox.AddSizer(Line1hbox, 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		UploadPanelvbox.AddSizer(Line2hbox, 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		
+		Line4hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
+		BaText = New wxStaticText.Create(UploadPanel , wxID_ANY , "Baud Rate: " , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
+		BaudComboBox = New wxComboBox.Create(UploadPanel , BACB , BAUDCHOICES[BaudSelection] , BAUDCHOICES , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)		
+		
+		Line4hbox.Add(BaText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
+		Line4hbox.Add(BaudComboBox , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )	
+		UploadPanelvbox.AddSizer(Line4hbox, 0 , wxEXPAND | wxALL , 4 )	
+		
 		Line3hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)
 		Local SText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , LABEL4 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
 		StatusText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , "" , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
@@ -361,6 +388,11 @@ Type A4SHelperFrameType Extends wxFrame
 		Line3hbox.Add(SText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		Line3hbox.Add(StatusText , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		UploadPanelvbox.AddSizer(Line3hbox, 0 , wxEXPAND | wxALL , 4 )		
+
+
+
+		
+
 
 		UploadButton = New wxButton.Create(UploadPanel , SSB , BUTTON1)
 		UploadButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
@@ -402,7 +434,13 @@ Type A4SHelperFrameType Extends wxFrame
 		Line1hbox2.Add(RefreshPortsButton2 , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		MainPanelvbox.AddSizer(Line1hbox2, 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 
-
+		Line3hbox2:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
+		BaText2 = New wxStaticText.Create(MainPanel , wxID_ANY , "Baud Rate: " , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
+		BaudComboBox2 = New wxComboBox.Create(MainPanel , BACB2 , BAUDCHOICES[BaudSelection] , BAUDCHOICES , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)		
+		
+		Line3hbox2.Add(BaText2 , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
+		Line3hbox2.Add(BaudComboBox2 , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )	
+		MainPanelvbox.AddSizer(Line3hbox2, 0 , wxEXPAND | wxALL , 4 )	
 		
 		Line2hbox2:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)
 		Local SText2:wxStaticText = New wxStaticText.Create(MainPanel , wxID_ANY , LABEL5 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
@@ -433,9 +471,16 @@ Type A4SHelperFrameType Extends wxFrame
 		Self.UpdatePorts()
 		Self.center()
 		Self.show()		
+		If BaudComboBox.GetSelection() = 9 Then 
+			Self.ToggleAdvancedOptions()
+		EndIf 
 		
 		Connect(PCB1 , wxEVT_COMMAND_COMBOBOX_SELECTED , PortUpdatedFun , "1")
 		Connect(PCB2 , wxEVT_COMMAND_COMBOBOX_SELECTED , PortUpdatedFun , "2")
+
+		Connect(BACB , wxEVT_COMMAND_COMBOBOX_SELECTED , BaudUpdatedFun , "1")
+		Connect(BACB2 , wxEVT_COMMAND_COMBOBOX_SELECTED , BaudUpdatedFun , "2")		
+		
 		Connect(BCB , wxEVT_COMMAND_COMBOBOX_SELECTED , BoardUpdatedFun )		
 		
 		
@@ -445,10 +490,32 @@ Type A4SHelperFrameType Extends wxFrame
 		Connect(SSB2 , wxEVT_COMMAND_BUTTON_CLICKED , ServerFun)
 			
 		Connect(TLOG , wxEVT_COMMAND_MENU_SELECTED, ShowLogFun)
+		Connect(TADO , wxEVT_COMMAND_MENU_SELECTED, ToggleAdvancedOptionsFun)		
 		Connect(wxID_CLOSE, wxEVT_COMMAND_MENU_SELECTED, CloseFun)			
 		Connect(AID, wxEVT_COMMAND_MENU_SELECTED, AboutFun)	
 			
 		ConnectAny(wxEVT_CLOSE , CloseFun)
+	End Method
+	
+	Function ToggleAdvancedOptionsFun(event:wxEvent)
+		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
+		A4SHelperFrame.ToggleAdvancedOptions()
+	End Function
+	
+	Method ToggleAdvancedOptions()
+		If AdvancedOptionsShown=True Then
+			BaudComboBox.show(0)
+			BaText.show(0)
+			BaudComboBox2.show(0)
+			BaText2.show(0)
+			AdvancedOptionsShown = False
+		Else
+			BaudComboBox.show(1)
+			BaText.show(1)
+			BaudComboBox2.show(1)
+			BaText2.show(1)	
+			AdvancedOptionsShown = True 
+		EndIf 
 	End Method
 	
 	Function BoardUpdatedFun(event:wxEvent)
@@ -460,6 +527,28 @@ Type A4SHelperFrameType Extends wxFrame
 		Else
 			BoardSelection = Selection
 			UpdateSettings()
+		EndIf 
+		
+	End Function
+
+	Function BaudUpdatedFun(event:wxEvent)
+		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
+		Local ComboNum = Int(String(event.userData))
+		Local Selection:Int
+		
+		If ComboNum = 1 Then 
+			Selection = A4SHelperFrame.BaudComboBox.GetSelection()
+		Else
+			Selection = A4SHelperFrame.BaudComboBox2.GetSelection()
+		EndIf
+		
+		If Selection = wxNOT_FOUND Then
+		
+		Else
+			BaudSelection = Selection
+			UpdateSettings()
+			A4SHelperFrame.BaudComboBox.SetSelection(Selection)
+			A4SHelperFrame.BaudComboBox2.SetSelection(Selection)
 		EndIf 
 		
 	End Function
@@ -533,6 +622,7 @@ Type A4SHelperFrameType Extends wxFrame
 		If A4SHelperFrame.UploadButton.GetLabel() = BUTTON1 Or A4SHelperFrame.UploadButton.GetLabel() = BUTTON2 Then
 			Local Port:String = A4SHelperFrame.PortComboBox.GetValue()
 			Local Board:Int = Int(A4SHelperFrame.BoardComboBox.GetValue())
+			Local Baud:String = A4SHelperFrame.BaudComboBox.GetValue()
 			Local MessageBox:wxMessageDialog 
 			If Port = "" Or Port = " " Or Board=0 Then
 				MessageBox = New wxMessageDialog.Create(Null , ERROR1 , ERROR6 , wxOK | wxICON_ERROR)
@@ -540,7 +630,10 @@ Type A4SHelperFrameType Extends wxFrame
 				MessageBox.Free()	
 				Return 
 			EndIf 
-			A4SHelperFrame.ProcessUpload(ExtractPort(Port),Board)
+			If Baud = "" Or Baud = " " Then 
+				Baud="57600"
+			EndIf
+			A4SHelperFrame.ProcessUpload(ExtractPort(Port),Board,Baud)
 		Else
 			MessageBox = New wxMessageDialog.Create(Null, ERROR2 , "Question", wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION)
 			If MessageBox.ShowModal() = wxID_YES Then
@@ -554,16 +647,28 @@ Type A4SHelperFrameType Extends wxFrame
 		
 	End Function 
 	
-	Method ProcessUpload(Port:String,Board:Int)
+	Method ProcessUpload(Port:String,Board:Int,Baud:String)
 		Local MessageBox:wxMessageDialog 
 		A4SHelperLog.AddText("===============Uploading===============~n")	
 		UploadButton.SetLabel(BUTTON3)
 		UploadButton.setbackgroundcolour(New wxColour.createcolour(255,100,100))
 		A4SHelperLog.AddText("Starting Upload on "+Port+" ~n")
 		StatusText.SetLabel("Started")
-		StatusText.SetForegroundColour(New wxColour.createcolour(255,140,0))			
+		StatusText.SetForegroundColour(New wxColour.createcolour(255,140,0))	
+		If ModifyFirmataSource(Baud)=1 Then
+			MessageBox = New wxMessageDialog.Create(Null , ERROR7 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox.ShowModal()
+			MessageBox.Free()	
+			UploadButton.SetLabel(BUTTON1)
+			UploadButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
+		
+			StatusText.SetLabel(STATUS4)
+			StatusText.SetForegroundColour(New wxColour.createcolour(255,0,0))
+			A4SHelperLog.AddText("Failed to generate Firmata Source")
+			Return
+		EndIf
 		ChangeDir("ArduinoUploader")
-		Self.UploadProcess = createprocess("ArduinoUploader  StandardFirmata\StandardFirmata.ino "+Board+" "+Port,1)
+		Self.UploadProcess = createprocess("ArduinoUploader  "+Chr(34)+GetUserAppDir()+"\A4S\StandardFirmata\StandardFirmata.ino"+Chr(34)+" "+Board+" "+Port,1)
 		Local s:String
 		
 		If UploadProcess = Null Then 
@@ -716,6 +821,7 @@ Type A4SHelperFrameType Extends wxFrame
 		If A4SHelperFrame.ServerButton.GetLabel() = BUTTON4 Then
 
 			Local Port:String = A4SHelperFrame.PortComboBox2.GetValue()
+			Local Baud:String = A4SHelperFrame.BaudComboBox2.GetValue()
 			Local MessageBox:wxMessageDialog 
 			If Port = "" Or Port = " " Then
 				MessageBox = New wxMessageDialog.Create(Null , ERROR3 , ERROR6 , wxOK | wxICON_ERROR)
@@ -723,7 +829,10 @@ Type A4SHelperFrameType Extends wxFrame
 				MessageBox.Free()	
 				Return 
 			EndIf 
-			A4SHelperFrame.ProcessServer(ExtractPort(Port))
+			If Baud = "" Or Baud = " " Then
+				Baud = "57600"
+			EndIf 
+			A4SHelperFrame.ProcessServer(ExtractPort(Port),Baud)
 		Else
 			A4SHelperFrame.A4SHelperLog.AddText("Process Terminated By User~n")	
 			A4SHelperFrame.StatusText2.SetLabel("Stopped By User")
@@ -731,7 +840,7 @@ Type A4SHelperFrameType Extends wxFrame
 		EndIf 
 	End Function 
 	
-	Method ProcessServer(Port:String)
+	Method ProcessServer(Port:String,Baud:String)
 		Local MessageBox:wxMessageDialog 
 			
 		A4SHelperLog.AddText("===============Starting Helper App===============~n")	
@@ -743,7 +852,7 @@ Type A4SHelperFrameType Extends wxFrame
 
 		
 		A4SHelperLog.AddText("Running Helper App on "+Port+" ~n")
-		Self.ServerProcess = createprocess("java -d32 -jar A4S.jar "+Port)
+		Self.ServerProcess = createprocess("java -d32 -jar A4S.jar "+Port+" "+Baud)
 		
 		If ServerProcess = Null Then 
 			MessageBox = New wxMessageDialog.Create(Null , ERROR4 , ERROR6 , wxOK | wxICON_ERROR)
@@ -800,8 +909,6 @@ Type A4SHelperFrameType Extends wxFrame
 			PortComboBox.Append(Port)
 			PortComboBox2.Append(Port)
 		Next
-		Print CountList(COMPortsList)
-		Print PortSelection
 		If CountList(COMPortsList)-1<PortSelection Then 
 			PortSelection=0
 		EndIf 
@@ -904,6 +1011,38 @@ Function UpdateSettings()
 	SettingsFile = WriteFile(GetUserAppDir()+"\A4S\Settings.txt")
 	WriteLine(SettingsFile,PortSelection)
 	WriteLine(SettingsFile,BoardSelection)
+	WriteLine(SettingsFile,BaudSelection)
 	CloseFile(SettingsFile)
+End Function
+
+Function ModifyFirmataSource(Baud:String)
+	Print "Started"
+	If FileType("ArduinoUploader\StandardFirmataTemplate\StandardFirmataTemplate.ino") = 1 Then
+	
+	Else
+		Return 1
+	EndIf 
+	If FileType(GetUserAppDir()+"\A4S\StandardFirmata")=2 Then
+	
+	Else
+		CreateDir(GetUserAppDir()+"\A4S\StandardFirmata")
+	EndIf
+	
+	Local NewFirmata:TStream
+	Local OldFirmata:TStream 
+	Local Line:String
+	NewFirmata = WriteFile(GetUserAppDir()+"\A4S\StandardFirmata\StandardFirmata.ino")
+	OldFirmata = ReadFile("ArduinoUploader\StandardFirmataTemplate\StandardFirmataTemplate.ino")
+	Repeat
+		Line = ReadLine(OldFirmata)
+		If Instr(Line,"##BaudRatePlaceHolder##") Then
+			Line = Replace(Line,"##BaudRatePlaceHolder##",Baud)
+		EndIf
+		WriteLine(NewFirmata,Line)
+		If Eof(OldFirmata) Then Exit 
+	Forever
+	CloseFile(OldFirmata)
+	CloseFile(NewFirmata)
+	Return 0
 End Function
 
