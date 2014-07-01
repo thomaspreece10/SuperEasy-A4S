@@ -17,6 +17,7 @@ Status of Helper App:
 &File
 &View
 &About
+&Toggle Advanced Options
 Start Upload
 Finished Upload. Upload Again?
 Stop
@@ -27,6 +28,7 @@ Please Select a Port
 Helper App could not start. Please make sure you have java installed on your system!
 ArduinoUploader could not start.
 Error
+Failed to generate Firmata code
 Not Started Yet
 Stopped
 Stopped By User
