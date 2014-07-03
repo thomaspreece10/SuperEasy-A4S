@@ -8,10 +8,7 @@ You need to have Java installed on your system.
 
 ## Instructions
 
-1. Install the [Scratch 2 offline editor](http://scratch.mit.edu/scratch2download/) or use [Scratch 2 online editor](http://scratch.mit.edu/projects/editor/). 
-2. [Download the A4S code](https://github.com/thomaspreece10/A4S/raw/master/Release.zip) from GitHub and unzip it.
-3. Launch "main.exe" file and follow on screen instructions.
-
+For instructions on how to download, install and use please visit my personal webpage: [http://thomaspreece.com](http://thomaspreece.com/resources.php)
 
 ##Modifying The Code
 
