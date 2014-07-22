@@ -11,7 +11,7 @@
 		[" ", "analogWrite(PWM) Pin:%n  Value:%n", "analogWrite", 6, 255],
 		[" ", "servoWrite Pin:%n Deg:%n", "servoWrite", 6, 120],
 		["b", "digitalRead Pin:%n", "digitalRead", 2],
-		["r", "analogRead Pin:%n", "analogRead", 0],
+		["r", "analogRead Pin: A%n", "analogRead", 0],
 	],
 	"menus": {
 		"inputOutput": ["input", "output"],

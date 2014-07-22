@@ -245,7 +245,7 @@ public class A4S {
 			for (int i = 2; i <= 13; i++) {
 				response += "digitalRead/" + i + " " + (arduino.digitalRead(i) == Firmata.HIGH ? "true" : "false") + "\n";
 			}
-			for (int i = 0; i <= 5; i++) {
+			for (int i = 0; i <= 13; i++) {
 				response += "analogRead/" + i + " " + (arduino.analogRead(i)) + "\n";
 			}
 		} else {
