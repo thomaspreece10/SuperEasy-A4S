@@ -22,7 +22,9 @@ Import BRL.FileSystem
 Import BRL.Blitz
 Import BRL.System
 
+?Not MacOS
 Import "A4S-helperApp.o"
+?
 
 Const RPB:Int = 1
 Const SSB:Int = 2
@@ -37,7 +39,13 @@ Const BCB:Int = 10
 Const TADO:Int = 11
 Const BACB:Int = 12
 Const BACB2:Int = 13
-Const PROGRAMICON:String = "Resources\microcontroller.ico"
+?Not MacOS
+Const Slash:String="\"
+?MacOS
+Const Slash:String="/"
+?
+
+
 
 Global EXPLAINTEXT1:String
 Global EXPLAINTEXT2:String
@@ -69,6 +77,7 @@ Global ERROR4:String
 Global ERROR5:String
 Global ERROR6:String
 Global ERROR7:String
+Global ERROR8:String
 Global STATUS1:String
 Global STATUS2:String
 Global STATUS3:String
@@ -79,9 +88,15 @@ Global STATUS7:String
 Global STATUS8:String
 Global STATUS9:String
 
+?Win32
+Global AppResources:String=""
+Global PROGRAMICON:String = "Resources"+Slash+"microcontroller.ico"
+?MacOS
+Global AppResources:String=StripDir(AppFile)+".app"+"/Contents/Resources/"
+Global PROGRAMICON:String = AppResources+"microcontroller.ico"
+?
 
-
-If FileType("LanguageFile.txt")=1 Then 
+If FileType(AppResources+"LanguageFile.txt")=1 Then 
 	ReadLanguage = ReadFile("LanguageFile.txt")
 	
 	ReadLine(ReadLanguage)
@@ -121,6 +136,7 @@ If FileType("LanguageFile.txt")=1 Then
 	ERROR5 = ReadLine(ReadLanguage)
 	ERROR6 = ReadLine(ReadLanguage)
 	ERROR7 = ReadLine(ReadLanguage)
+	ERROR8 = ReadLine(ReadLanguage)	
 	STATUS1 = ReadLine(ReadLanguage)
 	STATUS2 = ReadLine(ReadLanguage)
 	STATUS3 = ReadLine(ReadLanguage)
@@ -133,6 +149,7 @@ If FileType("LanguageFile.txt")=1 Then
 	
 	CloseFile(ReadLanguage)
 Else
+	?Win32
 	EXPLAINTEXT1 = "Firstly we need to install the drivers of our Arduino board. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step.~n~n"+..
 	"INSTRUCTIONS ~n~n"+..
 	"A) Plug one end of your USB cable into the Arduino and the other into a USB socket on your computer. The power light on the LED will light up and you may get a 'Found New Hardware' message from Windows. Ignore this message and cancel any attempts that Windows makes to try and install drivers automatically for you.~n~n"+..
@@ -150,7 +167,7 @@ Else
 	"C) Finally click upload and wait for the 'Status of Upload' to say finished then move onto step 2"
 	EXPLAINTEXT3 = "Now we need to start the helper application that communicates between the Arduino and scratch. This must be running the whole time while you are using Arduino in your scratch sketch.~n~n"+..
 	"INSTRUCTIONS ~n~n"+..
-	"A) As in step 2, select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong COM port the program will fail to upload so a trial and error approach may work to find out which COM port your Arduino is. ~n~n"+..
+	"A) As in step 2, select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. ~n~n"+..
 	"B) Now click Start Helper App and wait for 'Status of Helper App' to say 'Started!'~n~n"+..
 	"C) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch. ~n"+..
 	"This can be done by going To File->Open in the offline Scratch Editor Or by File->'Upload from your Computer' in the online editor."
@@ -183,7 +200,8 @@ Else
 	ERROR5 = "ArduinoUploader could not start."
 	ERROR6 = "Error"
 	ERROR7 = "Failed to generate Firmata code"
-	
+	ERROR8 = "Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)"
+		
 	STATUS1 = "Not Started Yet"
 	STATUS2 = "Stopped"
 	STATUS3 = "Stopped By User"
@@ -194,6 +212,72 @@ Else
 	STATUS8 = "Started!"
 	STATUS9 = "Starting..."	
 
+	?MacOS
+	EXPLAINTEXT1 = "Firstly we need to install the Arduino program and in some cases a driver. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step.~n~n"+..
+	"INSTRUCTIONS ~n~n"+..
+	"A) Goto http://arduino.cc/en/Main/Software and download the latest stable version of the Arduino IDE, at time of writing that is version 1.0.5. ~n~n"+..
+	"B) Now install the Arduino program into your Applications folder. ~n~n"+..
+	"C) If you're using an older board ( Duemilanove, Diecimila, or any board with an FTDI driver chip that looks like the picture here: http://arduino.cc/en/Guide/MacOSX#toc3 ) you will need to install the drivers for the FTDI chip on the board. To get the drivers see http://www.ftdichip.com/Drivers/VCP.htm. ~n~n"+..
+	"D) Plug in your Arduino, if any windows pop up you can close them off. Now continue to step 2."
+	
+	EXPLAINTEXT2 = "Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2. ~n~n"+ ..
+	"INSTRUCTIONS ~n~n"+..
+	"A) Firstly select the port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong port the program will fail to upload so a trial and error approach may work to find out which port your Arduino is.~n~n"+..
+	"B) Next select the model of your Arduino board. It should say the model name on the actual board itself.~n~n"+..
+	"C) Next click upload button and wait for the Arduino program to load up. ~n~n"+..
+	"D) Go to the 'Tools' menu and then 'Serial Port' and select the port your Arduino is plugged into, same as you did for step A. ~n~n"+..
+	"E) Now go again to the 'Tools' menu and then 'Board' and select the the model of your Arduino board, same as you did in step B. ~n~n"+..
+	"F) Now on the Arduino window you will see some greenish coloured buttons. Hover your mouse over the second from the left. It should now say 'Upload', click it. ~n~n"+..
+	"G) Wait for the Arduino program to say 'Done Uploading'. Then close the Arduino program and goto step 3"
+	
+	EXPLAINTEXT3 = "Now we need to start the helper application that communicates between the Arduino and scratch. This must be running the whole time while you are using Arduino in your scratch sketch.~n~n"+..
+	"INSTRUCTIONS ~n~n"+..
+	"A) As in step 2, select the port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. ~n~n"+..
+	"B) Now click Start Helper App and wait for 'Status of Helper App' to say 'Started!'~n~n"+..
+	"C) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch. ~n"+..
+	"This can be done by going To File->Open in the offline Scratch Editor Or by File->'Upload from your Computer' in the online editor."
+	APPWINTITLE = "Arduino Scratch Server Starter"
+	APPLOGTITLE = "Log"
+	
+	TAB1 = "Step 1 - Arduino Installation"
+	TAB2 = "Step 2 - Uploading"
+	TAB3 = "Step 3 - Start Server"
+	LABEL1 = "Port: "
+	LABEL2 = "Refresh"
+	LABEL3 = "Board: "
+	LABEL4 = "Status of Upload: "
+	LABEL5 = "Status of Helper App: "
+	MENU1 = "&Quit"
+	MENU2 = "&Debug Log"
+	MENU3 = "&File"
+	MENU4 = "&View"
+	MENU5 = "&About"
+	MENU6 = "&Toggle Advanced Options"
+	BUTTON1 = "Start Upload"
+	BUTTON2 = "Finished Upload. Upload Again?"
+	BUTTON3 = "Stop"
+	BUTTON4 = "Start Helper App"
+	
+	ERROR1 = "Please Select a Port and Board"
+	ERROR2 = "Closing now may cause damage to your Arduino if you do not wait for it to finish. Do you still wish to close?"
+	ERROR3 = "Please Select a Port"
+	ERROR4 = "Helper App could not start. Please make sure you have java installed on your system!"
+	ERROR5 = "ArduinoUploader could not start."
+	ERROR6 = "Error"
+	ERROR7 = "Failed to generate Firmata code"
+	ERROR8 = "Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)"
+		
+	STATUS1 = "Not Started Yet"
+	STATUS2 = "Stopped"
+	STATUS3 = "Stopped By User"
+	STATUS4 = "Error (see log)"
+	STATUS5 = "Finished"
+	STATUS6 = "Uploading..."
+	STATUS7 = "Compiling..."
+	STATUS8 = "Started!"
+	STATUS9 = "Starting..."	
+		
+	?
 EndIf 
 
 Global PortSelection:Int = 0
@@ -202,13 +286,13 @@ Global BaudSelection:Int = 9
 
 'Check if settings file available
 
-If FileType(GetUserAppDir()+"\A4S")=2 Then
+If FileType(GetUserAppDir()+Slash+"A4S")=2 Then
 	'Continue
 Else
 	'Create Directory
-	CreateDir(GetUserAppDir()+"\A4S")
+	CreateDir(GetUserAppDir()+Slash+"A4S")
 	'Check that directory actually created
-	If FileType(GetUserAppDir()+"\A4S")=2 Then
+	If FileType(GetUserAppDir()+Slash+"A4S")=2 Then
 		'Continue
 	Else	
 		Notify("Error Creating User Folder",True)
@@ -216,12 +300,12 @@ Else
 	EndIf
 EndIf 
 
-If FileType(GetUserAppDir()+"\A4S\Settings.txt")=1 Then 
+If FileType(GetUserAppDir()+Slash+"A4S"+Slash+"Settings.txt")=1 Then 
 	'Continue
 Else 
 	'CreateFile
 	UpdateSettings()
-	If FileType(GetUserAppDir()+"\A4S\Settings.txt")=1 Then 
+	If FileType(GetUserAppDir()+Slash+"A4S"+Slash+"Settings.txt")=1 Then 
 	
 	Else
 		Notify("Error Creating User settings file",True)
@@ -230,14 +314,18 @@ Else
 EndIf
 
 Local SettingsFile:TStream 
-SettingsFile = ReadFile(GetUserAppDir()+"\A4S\Settings.txt")
+SettingsFile = ReadFile(GetUserAppDir()+Slash+"A4S"+Slash+"Settings.txt")
 PortSelection = Int(ReadLine(SettingsFile))
 BoardSelection = Int(ReadLine(SettingsFile))
 BaudSelection = Int(ReadLine(SettingsFile))
 CloseFile(SettingsFile)
 
-
+?Win32
 Global BOARDCHOICES:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8","16 - Microduino Core+ (644)","17 - Freematics OBD-II Adapter"]
+?Not Win32
+Global BOARDCHOICES:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8"]
+Global ACTUALBOARDS:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8"]
+?
 Global BAUDCHOICES:String[] = ["300","1200","2400", "4800", "9600", "14400", "19200", "28800", "38400", "57600", "115200"]
 
 Global A4SHelperApp:A4SHelperAppType
@@ -667,8 +755,19 @@ Type A4SHelperFrameType Extends wxFrame
 			A4SHelperLog.AddText("Failed to generate Firmata Source")
 			Return
 		EndIf
-		ChangeDir("ArduinoUploader")
-		Self.UploadProcess = createprocess("ArduinoUploader  "+Chr(34)+GetUserAppDir()+"\A4S\StandardFirmata\StandardFirmata.ino"+Chr(34)+" "+Board+" "+Port,1)
+		?Not MacOS
+		Self.UploadProcess = createprocess("ArduinoUploader\ArduinoUploader.exe  "+Chr(34)+GetUserAppDir()+"\A4S\StandardFirmata\StandardFirmata.ino"+Chr(34)+" "+Board+" "+Port,1)
+		?MacOS
+		If FileType("/Applications/Arduino.app/Contents/MacOS/JavaApplicationStub")=1 Then 
+			Self.UploadProcess = createprocess("/Applications/Arduino.app/Contents/MacOS/JavaApplicationStub "+Chr(34)+GetUserAppDir()+"/A4S/StandardFirmata/StandardFirmata.ino"+Chr(34),1)
+		Else
+			MessageBox = New wxMessageDialog.Create(Null , ERROR8 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox.ShowModal()
+			MessageBox.Free()	
+		EndIf 
+		?
+		
+		
 		Local s:String
 		
 		If UploadProcess = Null Then 
@@ -680,7 +779,11 @@ Type A4SHelperFrameType Extends wxFrame
 		
 			StatusText.SetLabel(STATUS4)
 			StatusText.SetForegroundColour(New wxColour.createcolour(255,0,0))
+			?Win32
 			A4SHelperLog.AddText("ArduinoUploader could not start. This probabily means ArduinoUploader.exe is missing or corrupt. Please reinstall ArduinoUploader.~n")
+			?MacOS
+			A4SHelperLog.AddText("Arduino could not start. This could be because the installation is corrupt or missing~n")			
+			?
 			Return 
 
 		EndIf 
@@ -697,16 +800,23 @@ Type A4SHelperFrameType Extends wxFrame
 			A4SHelperApp.Yield()
 		Forever
 
+		?Win32
 		If StatusText.GetLabel()=STATUS5 Or StatusText.GetLabel()=STATUS3 Then
 		
 		Else
 			StatusText.SetLabel(STATUS4)
 			StatusText.SetForegroundColour(New wxColour.createcolour(255,0,0))
 		EndIf 
+		?MacOS
+		'Mac version just loads up Arduino Environment, so always show finished correctly status
+		StatusText.SetLabel(STATUS5)
+		StatusText.SetForegroundColour(New wxColour.createcolour(0,120,0))		
+		?
+		
 		UploadButton.SetLabel(BUTTON2)
 		UploadButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
 		TerminateProcess(UploadProcess)
-		ChangeDir("..")
+		'ChangeDir("..")
 		
 		A4SHelperLog.AddText("~n~n===============Finished Uploading===============~n")	
 		Return		
@@ -729,7 +839,7 @@ Type A4SHelperFrameType Extends wxFrame
 					If Instr(Totals, "avrdude.exe done.  Thank you.") Then
 						If Status.GetLabel()=STATUS4 Then
 						
-						else
+						Else
 							Status.SetLabel(STATUS5)
 							Status.SetForegroundColour(New wxColour.createcolour(0,120,0))							
 						EndIf 
@@ -864,7 +974,8 @@ Type A4SHelperFrameType Extends wxFrame
 
 		
 		A4SHelperLog.AddText("Running Helper App on "+Port+" ~n")
-		Self.ServerProcess = createprocess("java -d32 -jar A4S.jar "+Port+" "+Baud)
+		A4SHelperLog.AddText("java -d32 -jar "+Chr(34)+AppResources+"A4S.jar"+Chr(34)+" "+Port+" "+Baud)
+		Self.ServerProcess = createprocess("java -d32 -jar "+Chr(34)+AppResources+"A4S.jar"+Chr(34)+" "+Port+" "+Baud)
 		
 		If ServerProcess = Null Then 
 			MessageBox = New wxMessageDialog.Create(Null , ERROR4 , ERROR6 , wxOK | wxICON_ERROR)
@@ -972,55 +1083,61 @@ End Type
 
 Function ExtractPort:String(Text:String)
 	For a=1 To Len(Text)
-		If Mid(Text,a,1)="-" Then
-			Return Left(Text,a-2)
+		If Mid(Text,a,3)=" - " Then
+			Return Left(Text,a-1)
 		EndIf 
 	Next
 End Function
 
 Function GetPorts:TList()
 	Local COMPortsList:TList = CreateList()
+	
 	Local Ports:TList = TSerial.listPorts()
 
 	For Local Port:TSerialPortInfo = EachIn Ports
+		?Not MacOS
 		If Left(Port.portName,3)="COM" Then
-			ListAddFirst(COMPortsList,Port.portName+" - "+Port.productName)
+			If Port.productName="" Or Port.productName=" " Then 
+				ListAddFirst(COMPortsList,Port.portName+" - [No Product Name]")
+			Else
+				ListAddFirst(COMPortsList,Port.portName+" - "+Port.productName)
+			EndIf 
 		EndIf
+		?MacOS
+		If Left(Port.portName,5)="/dev/" Then
+			If Port.productName="" Or Port.productName=" " Then 
+				ListAddFirst(COMPortsList,Port.portName+" - [No Product Name]")
+			Else		
+				ListAddFirst(COMPortsList,Port.portName+" - "+Port.productName)
+			EndIf 
+		EndIf
+		?
 	Next
-
+	
+	If CountList(COMPortsList) = 0 Then 
+		ListAddLast(COMPortsList,"")
+	EndIf 
+	
+	Rem
+	?MacOS
+	ReadDevices = ReadDir("/dev/")
+	Repeat
+		Device:String = NextFile(ReadDevices)
+		If Device = "" Then Exit 
+		If Left(Device,Len("tty."))="tty." Then 
+			ListAddFirst(COMPortsList,"/dev/"+Device)
+		EndIf
+	Forever
+	CloseDir(ReadDevices)
+	?
+	EndRem 
 	Return COMPortsList
-Rem
-	Local COMPortsList:TList = CreateList()
-	Local Port:wxSerialPort = wxSerialPort(New wxSerialPort.Create())
-	Local a:Int
-	
-	For a=1 To 9
-		If Port.Open("com"+a)=0 Then
-			ListAddLast(COMPortsList,"COM"+a)
-			Port.Close()
-		Else
-
-		EndIf
-	Next
-	
-	For a=10 To 19
-		If Port.Open("\\.\com"+a)=0 Then
-			ListAddLast(COMPortsList,"COM"+a)
-			Port.Close()
-		Else
-
-		EndIf
-			
-	Next
-	
-	Return COMPortsList
-EndRem
 End Function
 
 
 Function UpdateSettings()
 	Local SettingsFile:TStream
-	SettingsFile = WriteFile(GetUserAppDir()+"\A4S\Settings.txt")
+	SettingsFile = WriteFile(GetUserAppDir()+Slash+"A4S"+Slash+"Settings.txt")
 	WriteLine(SettingsFile,PortSelection)
 	WriteLine(SettingsFile,BoardSelection)
 	WriteLine(SettingsFile,BaudSelection)
@@ -1029,22 +1146,22 @@ End Function
 
 Function ModifyFirmataSource(Baud:String)
 	Print "Started"
-	If FileType("ArduinoUploader\StandardFirmataTemplate\StandardFirmataTemplate.ino") = 1 Then
-	
+	If FileType("ArduinoUploader"+Slash+"StandardFirmataTemplate"+Slash+"StandardFirmataTemplate.ino") = 1 Then
+
 	Else
 		Return 1
 	EndIf 
-	If FileType(GetUserAppDir()+"\A4S\StandardFirmata")=2 Then
+	If FileType(GetUserAppDir()+Slash+"A4S"+Slash+"StandardFirmata")=2 Then
 	
 	Else
-		CreateDir(GetUserAppDir()+"\A4S\StandardFirmata")
+		CreateDir(GetUserAppDir()+Slash+"A4S"+Slash+"StandardFirmata")
 	EndIf
 	
 	Local NewFirmata:TStream
 	Local OldFirmata:TStream 
 	Local Line:String
-	NewFirmata = WriteFile(GetUserAppDir()+"\A4S\StandardFirmata\StandardFirmata.ino")
-	OldFirmata = ReadFile("ArduinoUploader\StandardFirmataTemplate\StandardFirmataTemplate.ino")
+	NewFirmata = WriteFile(GetUserAppDir()+Slash+"A4S"+Slash+"StandardFirmata"+Slash+"StandardFirmata.ino")
+	OldFirmata = ReadFile("ArduinoUploader"+Slash+"StandardFirmataTemplate"+Slash+"StandardFirmataTemplate.ino")
 	Repeat
 		Line = ReadLine(OldFirmata)
 		If Instr(Line,"##BaudRatePlaceHolder##") Then
