@@ -45,7 +45,7 @@ Const Slash:String="\"
 Const Slash:String="/"
 ?
 
-
+Const VERSION:String = "V1.1"
 
 Global EXPLAINTEXT1:String
 Global EXPLAINTEXT2:String
@@ -78,6 +78,8 @@ Global ERROR5:String
 Global ERROR6:String
 Global ERROR7:String
 Global ERROR8:String
+Global ERROR9:String
+Global ERROR10:String
 Global STATUS1:String
 Global STATUS2:String
 Global STATUS3:String
@@ -93,10 +95,11 @@ Global AppResources:String=""
 Global PROGRAMICON:String = "Resources"+Slash+"microcontroller.ico"
 ?MacOS
 Global AppResources:String=StripDir(AppFile)+".app"+"/Contents/Resources/"
-Global PROGRAMICON:String = AppResources+"microcontroller.ico"
+Global PROGRAMICON:String = "microcontroller.ico"
 ?
+ChangeDir(AppResources)
 
-If FileType(AppResources+"LanguageFile.txt")=1 Then 
+If FileType("LanguageFile.txt")=1 Then 
 	ReadLanguage = ReadFile("LanguageFile.txt")
 	
 	ReadLine(ReadLanguage)
@@ -137,6 +140,8 @@ If FileType(AppResources+"LanguageFile.txt")=1 Then
 	ERROR6 = ReadLine(ReadLanguage)
 	ERROR7 = ReadLine(ReadLanguage)
 	ERROR8 = ReadLine(ReadLanguage)	
+	ERROR9 = ReadLine(ReadLanguage)	
+	ERROR10 = ReadLine(ReadLanguage)	
 	STATUS1 = ReadLine(ReadLanguage)
 	STATUS2 = ReadLine(ReadLanguage)
 	STATUS3 = ReadLine(ReadLanguage)
@@ -169,8 +174,8 @@ Else
 	"INSTRUCTIONS ~n~n"+..
 	"A) As in step 2, select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. ~n~n"+..
 	"B) Now click Start Helper App and wait for 'Status of Helper App' to say 'Started!'~n~n"+..
-	"C) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch. ~n"+..
-	"This can be done by going To File->Open in the offline Scratch Editor Or by File->'Upload from your Computer' in the online editor."
+	"C) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch (which can be found in the examples folder within the A4S program folder). ~n"+..
+	"This can be done by going To File->Open in the offline Scratch Editor Or by File->'Upload from your Computer' in the online editor. (You will have to click the dropdown in the bottom right and select Scratch 2 Project to be able to see the ImportBlocks.sb2 file)"
 	APPWINTITLE = "Arduino Scratch Server Starter"
 	APPLOGTITLE = "Log"
 	
@@ -201,6 +206,8 @@ Else
 	ERROR6 = "Error"
 	ERROR7 = "Failed to generate Firmata code"
 	ERROR8 = "Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)"
+	ERROR9 = "Cannot find Scratch Files."
+	ERROR10 = "Cannot copy Scratch Files."
 		
 	STATUS1 = "Not Started Yet"
 	STATUS2 = "Stopped"
@@ -222,20 +229,19 @@ Else
 	
 	EXPLAINTEXT2 = "Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2. ~n~n"+ ..
 	"INSTRUCTIONS ~n~n"+..
-	"A) Firstly select the port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong port the program will fail to upload so a trial and error approach may work to find out which port your Arduino is.~n~n"+..
-	"B) Next select the model of your Arduino board. It should say the model name on the actual board itself.~n~n"+..
-	"C) Next click upload button and wait for the Arduino program to load up. ~n~n"+..
-	"D) Go to the 'Tools' menu and then 'Serial Port' and select the port your Arduino is plugged into, same as you did for step A. ~n~n"+..
-	"E) Now go again to the 'Tools' menu and then 'Board' and select the the model of your Arduino board, same as you did in step B. ~n~n"+..
-	"F) Now on the Arduino window you will see some greenish coloured buttons. Hover your mouse over the second from the left. It should now say 'Upload', click it. ~n~n"+..
-	"G) Wait for the Arduino program to say 'Done Uploading'. Then close the Arduino program and goto step 3"
+	"A) Firstly select the port your Arduino is plugged into below, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong port the program will fail to upload so a trial and error approach may work to find out which port your Arduino is.~n~n"+..
+	"B) Next click the 'Start Arduino IDE' button and wait for the Arduino program to load up. ~n~n"+..
+	"C) In the Arduino program go to the 'Tools' menu and then 'Serial Port' and select the port your Arduino is plugged into, same as you did for step A. ~n~n"+..
+	"D) Now go again to the 'Tools' menu and then 'Board' and select the the model of your Arduino board. It should say the model name on the actual board itself. ~n~n"+..
+	"E) Now on the Arduino window you will see some greenish coloured buttons. Hover your mouse over the second from the left. It should now say 'Upload', click it. ~n~n"+..
+	"F) Wait for the Arduino program to say 'Done Uploading'. Then close the Arduino program and goto step 3."
 	
 	EXPLAINTEXT3 = "Now we need to start the helper application that communicates between the Arduino and scratch. This must be running the whole time while you are using Arduino in your scratch sketch.~n~n"+..
 	"INSTRUCTIONS ~n~n"+..
 	"A) As in step 2, select the port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. ~n~n"+..
 	"B) Now click Start Helper App and wait for 'Status of Helper App' to say 'Started!'~n~n"+..
-	"C) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch. ~n"+..
-	"This can be done by going To File->Open in the offline Scratch Editor Or by File->'Upload from your Computer' in the online editor."
+	"C) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch, which can be found in the SuperEasy-A4S folder within your Documents or alternatively you can download from the website. ~n"+..
+	"To open a file in Scratch go to File->Open in the offline Scratch Editor Or to File->'Upload from your Computer' in the online editor. (You will have to click the dropdown in the bottom right and select Scratch 2 Project to be able to see the ImportBlocks.sb2 file)"
 	APPWINTITLE = "Arduino Scratch Server Starter"
 	APPLOGTITLE = "Log"
 	
@@ -245,7 +251,7 @@ Else
 	LABEL1 = "Port: "
 	LABEL2 = "Refresh"
 	LABEL3 = "Board: "
-	LABEL4 = "Status of Upload: "
+	LABEL4 = "Status of Arduino IDE: "
 	LABEL5 = "Status of Helper App: "
 	MENU1 = "&Quit"
 	MENU2 = "&Debug Log"
@@ -253,19 +259,21 @@ Else
 	MENU4 = "&View"
 	MENU5 = "&About"
 	MENU6 = "&Toggle Advanced Options"
-	BUTTON1 = "Start Upload"
-	BUTTON2 = "Finished Upload. Upload Again?"
+	BUTTON1 = "Start Arduino IDE"
+	BUTTON2 = "Start Arduino IDE Again?"
 	BUTTON3 = "Stop"
 	BUTTON4 = "Start Helper App"
 	
 	ERROR1 = "Please Select a Port and Board"
-	ERROR2 = "Closing now may cause damage to your Arduino if you do not wait for it to finish. Do you still wish to close?"
+	ERROR2 = "Closing now will close the Arduino IDE. Do you still wish to close?"
 	ERROR3 = "Please Select a Port"
 	ERROR4 = "Helper App could not start. Please make sure you have java installed on your system!"
 	ERROR5 = "ArduinoUploader could not start."
 	ERROR6 = "Error"
 	ERROR7 = "Failed to generate Firmata code"
 	ERROR8 = "Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)"
+	ERROR9 = "Cannot find Scratch Files."
+	ERROR10 = "Cannot copy Scratch Files."
 		
 	STATUS1 = "Not Started Yet"
 	STATUS2 = "Stopped"
@@ -320,12 +328,7 @@ BoardSelection = Int(ReadLine(SettingsFile))
 BaudSelection = Int(ReadLine(SettingsFile))
 CloseFile(SettingsFile)
 
-?Win32
 Global BOARDCHOICES:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8","16 - Microduino Core+ (644)","17 - Freematics OBD-II Adapter"]
-?Not Win32
-Global BOARDCHOICES:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8"]
-Global ACTUALBOARDS:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8"]
-?
 Global BAUDCHOICES:String[] = ["300","1200","2400", "4800", "9600", "14400", "19200", "28800", "38400", "57600", "115200"]
 
 Global A4SHelperApp:A4SHelperAppType
@@ -379,6 +382,26 @@ Type A4SHelperFrameType Extends wxFrame
 	Field AdvancedOptionsShown = True   
 
 	Method OnInit()	
+		
+		?MacOS
+		Local MessageBox:wxMessageDialog 
+		
+		CreateSb2Status = CreateSb2Files()
+		
+		If CreateSb2Status = 1 Then 
+			MessageBox = New wxMessageDialog.Create(Null , ERROR9 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox.ShowModal()
+			MessageBox.Free()	
+			Return
+		ElseIf CreateSb2Status = 2 Then
+			MessageBox = New wxMessageDialog.Create(Null , ERROR10 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox.ShowModal()
+			MessageBox.Free()	
+			Return
+		EndIf 
+		
+		?	
+			
 		MenuBar = New wxMenuBar.Create()
 		Local FileMenu:wxMenu = New wxMenu.Create()
 		FileMenu.Append(AID, MENU5)
@@ -448,17 +471,22 @@ Type A4SHelperFrameType Extends wxFrame
 		Line1hbox.Add(PortComboBox , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		Line1hbox.Add(RefreshPortsButton , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		
+		?Win32
 		Line2hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
 		Local BText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , LABEL3 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
 		BoardComboBox = New wxComboBox.Create(UploadPanel , BCB , BOARDCHOICES[BoardSelection] , BOARDCHOICES , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)		
 		
 		Line2hbox.Add(BText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		Line2hbox.Add(BoardComboBox , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )		
+		?
 		
 		UploadPanelvbox.Add(S2_TextPanel , 10 , wxEXPAND | wxALL , 4 )
 		UploadPanelvbox.AddSizer(Line1hbox, 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
+
+		?Win32
 		UploadPanelvbox.AddSizer(Line2hbox, 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
-		
+		?
+				
 		Line4hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
 		BaText = New wxStaticText.Create(UploadPanel , wxID_ANY , "Baud Rate: " , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
 		BaudComboBox = New wxComboBox.Create(UploadPanel , BACB , BAUDCHOICES[BaudSelection] , BAUDCHOICES , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)		
@@ -569,8 +597,9 @@ Type A4SHelperFrameType Extends wxFrame
 		Connect(BACB , wxEVT_COMMAND_COMBOBOX_SELECTED , BaudUpdatedFun , "1")
 		Connect(BACB2 , wxEVT_COMMAND_COMBOBOX_SELECTED , BaudUpdatedFun , "2")		
 		
+		?Win32
 		Connect(BCB , wxEVT_COMMAND_COMBOBOX_SELECTED , BoardUpdatedFun )		
-		
+		?
 		
 		Connect(RPB , wxEVT_COMMAND_BUTTON_CLICKED , UpdatePortsFun)
 		Connect(RPB2 , wxEVT_COMMAND_BUTTON_CLICKED , UpdatePortsFun)
@@ -606,6 +635,7 @@ Type A4SHelperFrameType Extends wxFrame
 		EndIf 
 	End Method
 	
+	?Win32
 	Function BoardUpdatedFun(event:wxEvent)
 		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
 		Local Selection:Int = A4SHelperFrame.BoardComboBox.GetSelection()
@@ -618,6 +648,7 @@ Type A4SHelperFrameType Extends wxFrame
 		EndIf 
 		
 	End Function
+	?
 
 	Function BaudUpdatedFun(event:wxEvent)
 		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
@@ -674,7 +705,7 @@ Type A4SHelperFrameType Extends wxFrame
 		Info.addDocWriter("Simon Monk")
 
 		Info.setName("A4S")
-		Info.setVersion("V1.0")
+		Info.setVersion(VERSION)
 		Info.setWebsite("http://thomaspreece.com","Lead developers personal website")
 		wxAboutBox(Info)
 	End Function
@@ -709,7 +740,12 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		If A4SHelperFrame.UploadButton.GetLabel() = BUTTON1 Or A4SHelperFrame.UploadButton.GetLabel() = BUTTON2 Then
 			Local Port:String = A4SHelperFrame.PortComboBox.GetValue()
+			?Win32
 			Local Board:Int = Int(A4SHelperFrame.BoardComboBox.GetValue())
+			?Not Win32
+			Local Board:Int = 1
+			?
+			
 			Local Baud:String = A4SHelperFrame.BaudComboBox.GetValue()
 			Local MessageBox:wxMessageDialog 
 			If Port = "" Or Port = " " Or Board=0 Then
@@ -971,11 +1007,10 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		ServerButton.setbackgroundcolour(New wxColour.createcolour(255,100,100))
 		ServerButton.SetLabel(BUTTON3)
-
 		
 		A4SHelperLog.AddText("Running Helper App on "+Port+" ~n")
-		A4SHelperLog.AddText("java -d32 -jar "+Chr(34)+AppResources+"A4S.jar"+Chr(34)+" "+Port+" "+Baud)
-		Self.ServerProcess = createprocess("java -d32 -jar "+Chr(34)+AppResources+"A4S.jar"+Chr(34)+" "+Port+" "+Baud)
+		A4SHelperLog.AddText("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud)
+		Self.ServerProcess = createprocess("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud)
 		
 		If ServerProcess = Null Then 
 			MessageBox = New wxMessageDialog.Create(Null , ERROR4 , ERROR6 , wxOK | wxICON_ERROR)
@@ -1174,4 +1209,52 @@ Function ModifyFirmataSource(Baud:String)
 	CloseFile(NewFirmata)
 	Return 0
 End Function
+
+Function CreateSb2Files()
+	If FileType("examples"+Slash+"ImportBlocks.sb2") = 1 Then
+	
+	Else
+		Return 2
+	EndIf 
+	If FileType("examples"+Slash+"EsploraBlocks.sb2") = 1 Then
+	
+	Else
+		Return 2
+	EndIf 
+		
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S")=2 Then
+	
+	Else
+		CreateDir(GetUserDocumentsDir()+Slash+"SuperEasy-A4S")
+	EndIf
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S")=2 Then
+	
+	Else
+		Return 1
+	EndIf
+	
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"ImportBlocks.sb2")=1 Then
+	
+	Else
+		CopyFile("examples"+Slash+"ImportBlocks.sb2",GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"ImportBlocks.sb2")
+	EndIf
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"ImportBlocks.sb2")=1 Then
+	
+	Else
+		Return 1
+	EndIf	
+	
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks.sb2")=1 Then
+	
+	Else
+		CopyFile("examples"+Slash+"EsploraBlocks.sb2",GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks.sb2")
+	EndIf
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks.sb2")=1 Then
+	
+	Else
+		Return 1
+	EndIf		
+	
+	Return 0
+End Function 
 
