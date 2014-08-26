@@ -1,31 +1,3 @@
-Framework BRL.StandardIO
-Import wx.wxApp
-Import wx.wxTimer
-Import wx.wxStaticText
-Import wx.wxTextCtrl
-Import wx.wxComboBox
-Import wx.wxPanel
-Import wx.wxButton
-Import wx.wxFrame
-Import wx.wxMessageDialog
-Import wx.wxNotebook 
-Import wx.wxAboutBox
-
-Import BaH.Serial
-Import BaH.Volumes
-
-Import brl.linkedlist 
-Import pub.freeprocess
-Import BRL.Retro
-Import BRL.PolledInput
-Import BRL.FileSystem
-Import BRL.Blitz
-Import BRL.System
-
-?Not MacOS
-Import "A4S-helperApp.o"
-?
-
 Const RPB:Int = 1
 Const SSB:Int = 2
 Const ST:Int = 3
@@ -45,7 +17,7 @@ Const Slash:String="\"
 Const Slash:String="/"
 ?
 
-Const VERSION:String = "V1.1"
+Const VERSION:String = "V1.2"
 
 Global EXPLAINTEXT1:String
 Global EXPLAINTEXT2:String
@@ -1008,9 +980,17 @@ Type A4SHelperFrameType Extends wxFrame
 		ServerButton.setbackgroundcolour(New wxColour.createcolour(255,100,100))
 		ServerButton.SetLabel(BUTTON3)
 		
+		Port = Replace(Port,"cu.","tty.")
 		A4SHelperLog.AddText("Running Helper App on "+Port+" ~n")
-		A4SHelperLog.AddText("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud)
-		Self.ServerProcess = createprocess("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud)
+		
+		
+		If Java32Bit = True Then 
+			A4SHelperLog.AddText("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud+"~n")
+			Self.ServerProcess = createprocess("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud)
+		Else
+			A4SHelperLog.AddText("java -jar "+"A4S.jar"+" "+Port+" "+Baud+"~n")
+			Self.ServerProcess = createprocess("java -jar "+"A4S.jar"+" "+Port+" "+Baud)
+		EndIf	
 		
 		If ServerProcess = Null Then 
 			MessageBox = New wxMessageDialog.Create(Null , ERROR4 , ERROR6 , wxOK | wxICON_ERROR)
