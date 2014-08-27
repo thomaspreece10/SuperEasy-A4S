@@ -26,6 +26,9 @@ Import BRL.System
 Import "A4S-helperApp.o"
 ?
 
+Print AppFile
+Print AppDir
+
 'Run Java as 32 Bit? 1 = Yes, 0 = No
 Const Java32Bit = 0
 
