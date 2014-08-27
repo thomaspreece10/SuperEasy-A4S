@@ -17,7 +17,7 @@ Const Slash:String="\"
 Const Slash:String="/"
 ?
 
-Const VERSION:String = "V1.2"
+Const VERSION:String = "V1.3"
 
 Global EXPLAINTEXT1:String
 Global EXPLAINTEXT2:String
@@ -66,7 +66,7 @@ Global STATUS9:String
 Global AppResources:String=""
 Global PROGRAMICON:String = "Resources"+Slash+"microcontroller.ico"
 ?MacOS
-Global AppResources:String=StripDir(AppFile)+".app"+"/Contents/Resources/"
+Global AppResources:String=AppDir+"/"+StripDir(AppFile)+".app"+"/Contents/Resources/"
 Global PROGRAMICON:String = "microcontroller.ico"
 ?
 ChangeDir(AppResources)
@@ -276,7 +276,6 @@ Else
 		'Continue
 	Else	
 		Notify("Error Creating User Folder",True)
-		Return 
 	EndIf
 EndIf 
 
@@ -288,8 +287,7 @@ Else
 	If FileType(GetUserAppDir()+Slash+"A4S"+Slash+"Settings.txt")=1 Then 
 	
 	Else
-		Notify("Error Creating User settings file",True)
-		Return 		
+		Notify("Error Creating User settings file",True)	
 	EndIf
 EndIf
 
