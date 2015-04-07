@@ -1,0 +1,1 @@
+The Java code requires a native (platform dependant) binary to communicate with the Arduino. This is what this library achieves. As part of the build script one of these platform specific libraries gets copied to our release folder.
