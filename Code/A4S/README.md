@@ -10,3 +10,8 @@ Java
 ##Building?
 Use the buildJava.sh file to build A4S.jar 
 
+##A4S.patch
+Patch file used to update the A4S version by damellis to be compatable with A4S-Helper
+
+patch < A4S.patch
+

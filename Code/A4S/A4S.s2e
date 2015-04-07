@@ -6,15 +6,15 @@
 //		[" ", "set pin %n as output", "pinOutput", 13],
 //		[" ", "set pin %n as input", "pinInput", 13],
 
-		[" ", "Set Pin:%n as %m.inputOutput", "pinMode", 2, "input"],
-		[" ", "digitalWrite Pin:%n as %m.highLow", "digitalWrite", 13, "high"],
-		[" ", "analogWrite(PWM) Pin:%n  Value:%n", "analogWrite", 6, 255],
-		[" ", "servoWrite Pin:%n Deg:%n", "servoWrite", 6, 120],
-		["b", "digitalRead Pin:%n", "digitalRead", 2],
-		["r", "analogRead Pin: A%n", "analogRead", 0],
+		[" ", "set pin %n as %m.mode", "pinMode", 2, "Digital Input"],
+		[" ", "digital write pin %n %m.highLow", "digitalWrite", 13, "high"],
+		[" ", "analog write pin %n value %n", "analogWrite", 3, 255],
+		[" ", "servo write pin %n degrees %n", "servoWrite", 5, 180],
+		["b", "digital read pin %n", "digitalRead", 2],
+		["r", "analog read pin %n", "analogRead", 0],
 	],
 	"menus": {
-		"inputOutput": ["input", "output"],
+		"mode": ["Digital Input", "Digital Output","Analog Input","Analog Output(PWM)","Servo"],
 		"highLow": ["high", "low"],
 	},
 }
