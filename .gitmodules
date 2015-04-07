@@ -1,6 +1,6 @@
 [submodule "processing"]
-	path = processing
+	path = Code/A4S/processing
 	url = https://github.com/damellis/processing.git
 [submodule "ArduinoUploader"]
-	path = ArduinoUploader
+	path = Code/ArduinoUploader
 	url = https://github.com/thomaspreece10/ArduinoUploader

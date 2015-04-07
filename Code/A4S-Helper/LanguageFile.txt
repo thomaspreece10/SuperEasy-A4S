@@ -1,0 +1,43 @@
+﻿#First Line is comment and not used. Each line represents a different string of text in application. ~n represents a new line. Do not reorder the text in this file unless you want the text in the program interface reordered!
+Firstly we need to install the drivers of our Arduino board. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step.~n~nINSTRUCTIONS ~n~nA) Plug one end of your USB cable into the Arduino and the other into a USB socket on your computer. The power light on the Arduino will light up and you may get a 'Found New Hardware' message from Windows. Ignore this message and cancel any attempts that Windows makes to try and install drivers automatically for you.~n~nB) We now load up the Device Manager. This is accessed in different ways depending on your version of Windows. In Windows Vista/7, you first have to open the Control Panel, then select View by: 'Large icons', and you should find 'Device Manager' in the list. In Windows XP, first open Control Panel then click 'Administrative Tools' then 'Computer Management' and then select 'Device Manager' from the list on the left.~n~nC) Under the section 'Other Devices' you should see an icon for 'unknown device' with a little yellow warning triangle next to it. This is your Arduino.~n~nD) Right-click on the device and select the top menu option (Update Driver Software...). You will then be prompted in Windows Vista/7 to either 'Search Automatically for updated driver software' or 'Browse my computer for driver software'. Or prompted in Windows XP to 'Install the software automatically' or 'Install from a list or specific location'. Select the option 'Browse my computer for driver software'/'Install from a list or specific location' and navigate to the drivers folder contained within this programs folder.~n~nE) Click 'Next' and you may get a security warning, if so, allow the software to be installed. Once the software has been installed, you will get a confirmation message.~n~nF) Now proceed to step 2.~n~n[Credit for the above text goes to: https://learn.adafruit.com/lesson-0-getting-started/installing-arduino-windows]
+Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2. ~n~nINSTRUCTIONS ~n~nA) Firstly select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong COM port the program will fail to upload so a trial and error approach may work to find out which COM port your Arduino is.~n~nB) Next select the model of your Arduino board. It should say the model name on the actual board itself.~n~nC) Finally click upload and wait for the 'Status of Upload' to say finished then move onto step 2
+Now we need to start the helper application that communicates between the Arduino and scratch. This must be running the whole time while you are using Arduino in your scratch sketch.~n~nINSTRUCTIONS ~n~nA) As in step 2, select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. ~n~nB) Now click Start Helper App and wait for 'Status of Helper App' to say 'Started!'~n~nC) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch (which can be found in the examples folder within the A4S program folder). ~nThis can be done by going To File->Open in the offline Scratch Editor Or by File->'Upload from your Computer' in the online editor. (You will have to click the dropdown in the bottom right and select Scratch 2 Project to be able to see the ImportBlocks.sb2 file) 
+Arduino Scratch Server Starter
+Log
+Step 1 - Driver
+Step 2 - Upload
+Step 3 - Server
+Port: 
+Refresh
+Board: 
+Status of Upload: 
+Status of Helper App: 
+&Quit
+&Debug Log
+&File
+&View
+&About
+&Toggle Advanced Options
+Start Upload
+Finished Upload. Upload Again?
+Stop
+Start Helper App
+Please Select a Port and Board
+Closing now may cause damage to your Arduino if you do not wait for it to finish. Do you still wish to close?
+Please Select a Port
+Helper App could not start. Please make sure you have java installed on your system!
+ArduinoUploader could not start.
+Error
+Failed to generate Firmata code
+Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)
+Cannot find Scratch Files.
+Cannot copy Scratch Files.
+Not Started Yet
+Stopped
+Stopped By User
+Error (see log)
+Finished
+Uploading...
+Compiling...
+Started!
+Starting...
