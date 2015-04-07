@@ -28,6 +28,8 @@ import gnu.io.UnsupportedCommOperationException;
 import org.firmata.Firmata;
 
 public class A4S {
+	private static int[] firmataPinModes={Firmata.INPUT,Firmata.OUTPUT,Firmata.ANALOG,Firmata.PWM,Firmata.SERVO };
+    	private static String[] a4sPinModes={"Digital%20Input", "Digital%20Output","Analog%20Input","Analog%20Output%28PWM%29","Servo"};
 
 	private static final int PORT = 12345; // set to your extension's port number
 	private static int volume = 8; // replace with your extension's data, if any
@@ -46,6 +48,7 @@ public class A4S {
 			try {
 				while (serialPort.getInputStream().available() > 0) {
 					int n = serialPort.getInputStream().read();
+					//System.out.println(">" + n);
 					arduino.processInput(n);
 				}
 			} catch (IOException err) {
@@ -69,7 +72,6 @@ public class A4S {
 
 	public static void main(String[] args) throws IOException {
 		try {
-			
 			if (args.length < 1) {
 				System.err.println("Please specify serial port on command line.");
 				System.err.flush();
@@ -82,7 +84,7 @@ public class A4S {
 			}else {
 				Baud = Integer.parseInt(args[1]);
 			}
-		
+			
 			if (Baud!=300 && Baud!=1200 && Baud!=2400 && Baud!=4800 && Baud!=9600 && Baud!=14400 && Baud!=19200 && Baud!=28800 && Baud!=38400 && Baud!=57600 && Baud!=115200){
 				System.err.println("Invalid baud rate");
 				System.err.println("Baud rate can be any one of 300 1200 2400 4800 9600 14400 19200 28800 38400 57600 115200. The typical value is 57600");
@@ -94,9 +96,7 @@ public class A4S {
 			
 			CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(args[0]);
 			CommPort commPort = portIdentifier.open("A4S",2000);
-			
-			
-			
+
 			if ( commPort instanceof SerialPort )
 			{
 				serialPort = (SerialPort) commPort;
@@ -122,7 +122,7 @@ public class A4S {
 			}
 		} catch (Exception e) {
 			System.err.println(e);
-			System.err.flush();
+			System.out.flush();
 			return;
 		}
 		
@@ -131,6 +131,7 @@ public class A4S {
 		System.out.flush();
 		System.out.println("Ready");
 		System.out.flush();
+		
 		ServerSocket serverSock = new ServerSocket(PORT);
 		while (true) {
 			Socket sock = serverSock.accept();
@@ -210,7 +211,6 @@ public class A4S {
 		String cmd = parts[0];
 		
 		//System.out.print(cmdAndArgs);
-		
 		if (cmd.equals("pinOutput")) {
 			arduino.pinMode(Integer.parseInt(parts[1]), Firmata.OUTPUT);
 		} else if (cmd.equals("pinInput")) {
@@ -220,22 +220,12 @@ public class A4S {
 		} else if (cmd.equals("pinLow")) {
 			arduino.digitalWrite(Integer.parseInt(parts[1]), Firmata.LOW);
 		} else if (cmd.equals("pinMode")) {
-			arduino.pinMode(Integer.parseInt(parts[1]), "input".equals(parts[2]) ? Firmata.INPUT : Firmata.OUTPUT);
+			arduino.pinMode(Integer.parseInt(parts[1]), getFirmataPinMode(parts[2]) );
 		} else if (cmd.equals("digitalWrite")) {
 			arduino.digitalWrite(Integer.parseInt(parts[1]), "high".equals(parts[2]) ? Firmata.HIGH : Firmata.LOW);
-		} else if (cmd.equals("analogWrite"))  {
-			if (Integer.parseInt(parts[2])>255) {
-				parts[2] = "255";
-			}else if (Integer.parseInt(parts[2])<0) {
-				parts[2] = "0";
-			}
+		} else if (cmd.equals("analogWrite")) {
 			arduino.analogWrite(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
 		} else if (cmd.equals("servoWrite")) {
-			if (Integer.parseInt(parts[2])>180) {
-				parts[2] = "180";
-			}else if (Integer.parseInt(parts[2])<0) {
-				parts[2] = "0";
-			}		
 			arduino.servoWrite(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
 		} else if (cmd.equals("poll")) {
 			// set response to a collection of sensor, value pairs, one pair per line
@@ -254,10 +244,15 @@ public class A4S {
 		//System.out.println(" " + response);
 		sendResponse(response);
 	}
-
+	private static int getFirmataPinMode(String a4sPinMode){
+		int idx=0;
+		while (idx < a4sPinModes.length-1 && (! a4sPinMode.equals(a4sPinModes[idx]))) idx++;
+		if (! a4sPinMode.equals(a4sPinModes[idx]) ) idx=0;
+		return firmataPinModes[idx];
+	}
 	private static void doHelp() {
 		// Optional: return a list of commands understood by this server
-		String help = "HTTP Scratch Extension Server Running<br><br>";
+		String help = "HTTP Extension Example Server<br><br>";
 		sendResponse(help);
 	}
 

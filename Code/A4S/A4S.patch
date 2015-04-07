@@ -1,0 +1,164 @@
+*** A4S.java	Tue Jun 24 14:59:56 2014
+--- A4S_patched.java	Tue Apr  7 18:59:38 2015
+***************
+*** 41,46 ****
+--- 41,47 ----
+  	private static Firmata arduino;
+  	
+  	private static SerialReader reader;
++ 	private static int Baud = -1; //Default Baud Rate
+  	
+  	public static class SerialReader implements SerialPortEventListener {
+  		public void serialEvent(SerialPortEvent e) {
+***************
+*** 52,57 ****
+--- 53,59 ----
+  				}
+  			} catch (IOException err) {
+  				System.err.println(err);
++ 				System.err.flush();
+  			}
+  		}
+  	}
+***************
+*** 63,68 ****
+--- 65,71 ----
+  				serialPort.getOutputStream().write(val);
+  			} catch (IOException err) {
+  				System.err.println(err);
++ 				System.err.flush();
+  			}
+  		}
+  	}
+***************
+*** 71,85 ****
+  		try {
+  			if (args.length < 1) {
+  				System.err.println("Please specify serial port on command line.");
+  				return;
+! 			}
+  			CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(args[0]);
+  			CommPort commPort = portIdentifier.open("A4S",2000);
+  
+  			if ( commPort instanceof SerialPort )
+  			{
+  				serialPort = (SerialPort) commPort;
+! 				serialPort.setSerialPortParams(57600,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
+  
+  				arduino = new Firmata(new FirmataWriter());
+  				reader = new SerialReader();
+--- 74,106 ----
+  		try {
+  			if (args.length < 1) {
+  				System.err.println("Please specify serial port on command line.");
++ 				System.err.flush();
+  				return;
+! 			}else if (args.length < 2){
+! 				System.err.println("Please specify baud rate for serial port on command line.");
+! 				System.err.println("Baud rate can be any one of 300 1200 2400 4800 9600 14400 19200 28800 38400 57600 115200. The typical value is 57600");
+! 				System.err.flush();
+! 				return;				
+! 			}else {
+! 				Baud = Integer.parseInt(args[1]);
+! 			}
+! 			
+! 			if (Baud!=300 && Baud!=1200 && Baud!=2400 && Baud!=4800 && Baud!=9600 && Baud!=14400 && Baud!=19200 && Baud!=28800 && Baud!=38400 && Baud!=57600 && Baud!=115200){
+! 				System.err.println("Invalid baud rate");
+! 				System.err.println("Baud rate can be any one of 300 1200 2400 4800 9600 14400 19200 28800 38400 57600 115200. The typical value is 57600");
+! 				System.err.flush();
+! 				return;				
+! 			}
+! 			System.out.println("Baud: "+Baud);
+! 			System.out.flush();
+! 			
+  			CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(args[0]);
+  			CommPort commPort = portIdentifier.open("A4S",2000);
+  
+  			if ( commPort instanceof SerialPort )
+  			{
+  				serialPort = (SerialPort) commPort;
+! 				serialPort.setSerialPortParams(Baud,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
+  
+  				arduino = new Firmata(new FirmataWriter());
+  				reader = new SerialReader();
+***************
+*** 96,110 ****
+  			else
+  			{
+  				System.out.println("Error: Only serial ports are handled by this example.");
+  				return;
+  			}
+  		} catch (Exception e) {
+  			System.err.println(e);
+  			return;
+  		}
+  		
+  		InetAddress addr = InetAddress.getLocalHost();
+! 		System.out.println("HTTPExtensionExample helper app started on " + addr.toString());
+  		
+  		ServerSocket serverSock = new ServerSocket(PORT);
+  		while (true) {
+--- 117,136 ----
+  			else
+  			{
+  				System.out.println("Error: Only serial ports are handled by this example.");
++ 				System.out.flush();
+  				return;
+  			}
+  		} catch (Exception e) {
+  			System.err.println(e);
++ 			System.out.flush();
+  			return;
+  		}
+  		
+  		InetAddress addr = InetAddress.getLocalHost();
+! 		System.out.println("HTTPScratchExtension helper app started on " + addr.toString() +":"+PORT);
+! 		System.out.flush();
+! 		System.out.println("Ready");
+! 		System.out.flush();
+  		
+  		ServerSocket serverSock = new ServerSocket(PORT);
+  		while (true) {
+***************
+*** 131,136 ****
+--- 157,163 ----
+  			int bytes_read = sockIn.read(buf, 0, buf.length);
+  			if (bytes_read < 0) {
+  				System.out.println("Socket closed; no HTTP header.");
++ 				System.out.flush();
+  				return;
+  			}
+  			httpBuf += new String(Arrays.copyOf(buf, bytes_read));
+***************
+*** 139,149 ****
+--- 166,178 ----
+  		String header = httpBuf.substring(0, i);
+  		if (header.indexOf("GET ") != 0) {
+  			System.out.println("This server only handles HTTP GET requests.");
++ 			System.out.flush();
+  			return;
+  		}
+  		i = header.indexOf("HTTP/1");
+  		if (i < 0) {
+  			System.out.println("Bad HTTP GET header.");
++ 			System.out.flush();
+  			return;
+  		}
+  		header = header.substring(5, i - 1);
+***************
+*** 206,212 ****
+  			for (int i = 2; i <= 13; i++) {
+  				response += "digitalRead/" + i + " " + (arduino.digitalRead(i) == Firmata.HIGH ? "true" : "false") + "\n";
+  			}
+! 			for (int i = 0; i <= 5; i++) {
+  				response += "analogRead/" + i + " " + (arduino.analogRead(i)) + "\n";
+  			}
+  		} else {
+--- 235,241 ----
+  			for (int i = 2; i <= 13; i++) {
+  				response += "digitalRead/" + i + " " + (arduino.digitalRead(i) == Firmata.HIGH ? "true" : "false") + "\n";
+  			}
+! 			for (int i = 0; i <= 13; i++) {
+  				response += "analogRead/" + i + " " + (arduino.analogRead(i)) + "\n";
+  			}
+  		} else {
