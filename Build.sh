@@ -43,9 +43,9 @@ releasename=$platform-$bits
 cd Code/A4S/
 echo "Building Java"
 ./buildJava.sh $1 $2
-
-
 cd ../../
+
+mkdir -p Releases
 
 ##Create release folder##
 if [ -d Releases/$releasename ]; then

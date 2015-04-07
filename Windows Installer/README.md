@@ -1,0 +1,1 @@
+The folder contains setting files that allow you to construct a setup program for windows. This is achieved through the use of the open source program [Inno Setup] (http://www.jrsoftware.org/isinfo.php).

@@ -12,5 +12,17 @@ For instructions on how to download, install and use please visit my personal we
 
 ##Modifying The Code
 
-Most of the code is in Java. 
-The HelperApp (main.exe/main.bmx) is coded in [BlitzMax](http://www.blitzmax.com/) and requires BlitzMax to compile. It is also dependant on [wxmax](https://code.google.com/p/wxmax/), a module for Blitzmax.
+The A4S code is in Java. It relies on a native serial library which is either 64 or 32 bit and platform dependant.
+The A4S-Helper is coded in [BlitzMax](http://www.blitzmax.com/) and requires BlitzMax to compile. It is also dependant on [wxmax](https://code.google.com/p/wxmax/), a module for Blitzmax.
+The ArduinoUploader program that is used for the Windows version is coded in C and can be found [here] (https://github.com/thomaspreece10/ArduinoUploader)
+
+##Build.sh
+This script brings together all the required files for each specific build. It automatically builds the correct Java file too. It does NOT however build the BlitzMax code and expects it to be prebuilt before the script is run. It takes 2 arguments.
+
+The first is either '32' or '64' and designates whether build should be compatible with 32bit Java Virtual Machine(JVM) or 64bit JVM.
+The second is either '1', '2' or '3'. 1 designates a Windows build, 2 a Mac OSX build and 3 a Linux build.
+
+After it has finished you should have all the required files assembled in a folder within the Releases folder.
+
+##A note about using Build.sh on Windows
+Build.sh is a BASH script. Windows doesn't ship with a BASH shell so you will have to download one. Simply renaming it to .bat will not work. The simplest method to get a bash shell would be to install git as it comes with a program called 'git Bash' will can execute the script fine.

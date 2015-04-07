@@ -1,5 +1,12 @@
-A4S Base - Based on https://github.com/damellis/A4S
-Coded in Java
+#A4S Base 
+Based on https://github.com/damellis/A4S
 
-Requires the TxRx Library:
-Before building and deploying copy the platform dependant TxRx library to this folder
+##What does it do?
+This is a HTTP server that communicates with the Arduino over serial port while at the same time responding to Scratch's queries about the status of the Arduino. Its the middleman between the Arduino and Scratch and handles all communication between them. If you want to add a new feature this is more than likely the code you need to change.
+
+##Language?
+Java
+
+##Building?
+Use the buildJava.sh file to build A4S.jar 
+
