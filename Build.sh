@@ -74,12 +74,12 @@ if [ $2 -eq 1 ]; then
 	##Add Drivers##
 	echo "Copying/Updating Drivers folder"
 	mkdir -p Releases/$releasename/drivers
-	#cp -ur Other/drivers/* Releases/$releasename/drivers
+	cp -ur Other/drivers/* Releases/$releasename/drivers
 
 	##Add examples##
 	echo "Copying/Updating Examples folder"
 	mkdir -p Releases/$releasename/examples
-	#cp -ur Code/Scratch\ Examples/* Releases/$releasename/examples
+	cp -ur Code/Scratch\ Examples/* Releases/$releasename/examples
 
 	##Copy A4S-Helper##
 	echo "Copying A4S-Helper"
