@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 if [ $# -ne 2 ]; then
 	echo "Program handles building of SuperEasy-A4S"
@@ -32,7 +32,7 @@ else
 fi
 
 #Linux and Mac are not supported yet, exit with error
-if [ $platform == "MacOSX" ] || [ $platform == "Linux" ]; then
+if [ $platform == "Linux" ]; then
 	echo "Not supported yet"
 	exit 0
 fi
@@ -56,6 +56,8 @@ else
 fi
 
 if [ $2 -eq 1 ]; then 
+	#Building For Windows
+	
 	##Check A4S-Helper Compiled##
 	if [ ! -f Code/A4S-Helper/A4S-$1.exe ]; then
 		echo "Please compile A4S-Helper (Cannot find A4S-$1.exe)"
@@ -83,8 +85,6 @@ if [ $2 -eq 1 ]; then
 
 	##Copy A4S-Helper##
 	echo "Copying A4S-Helper"
-	
-
 	cp -f Code/A4S-Helper/A4S-$1.exe Releases/$releasename/
 	cp -f Code/A4S-Helper/LanguageFile.txt Releases/$releasename/
 	cd Releases/$releasename/
@@ -108,4 +108,41 @@ if [ $2 -eq 1 ]; then
 	
 	##Echo Version##
 	echo "$releasename 1.4.0.0" > Releases/$releasename/Version.txt 
+elif [ $2 -eq 2 ]; then 
+	#Building for Mac
+	
+	##Check A4S-Helper Compiled##
+	if [ ! -d Code/A4S-Helper/A4S-$1.app/Contents/Resources/ ]; then
+		echo "Please compile A4S-Helper (Cannot find A4S-$1.app)"
+		exit 1
+	fi	
+	
+	##Copy A4S-Helper
+	echo "Copying A4S-Helper"
+	if [ -d Releases/$releasename/A4S-$1.app/ ]; then
+		rm -r Releases/$releasename/A4S-$1.app
+	fi
+	cp -r Code/A4S-Helper/A4S-$1.app/ Releases/$releasename/A4S-$1.app/
+	cp -f Code/A4S-Helper/A4S.icns Releases/$releasename/A4S-$1.app/Contents/Resources/A4S-$1.icns
+	cp -f Code/A4S-Helper/microcontroller.ico Releases/$releasename/A4S-$1.app/Contents/Resources/microcontroller.ico
+	
+	#No Need to add full ArduinoUploader or drivers
+	##Add Firmata Code##
+	echo "Copying Firmata code"
+	mkdir -p Releases/$releasename/A4S-$1.app/Contents/Resources/ArduinoUploader/StandardFirmataTemplate/
+	cp -f Code/ArduinoUploader/StandardFirmataTemplate/StandardFirmataTemplate.ino Releases/$releasename/A4S-$1.app/Contents/Resources/ArduinoUploader/StandardFirmataTemplate/
+
+	##Add examples##
+	echo "Copying/Updating Examples folder"
+	mkdir -p Releases/$releasename/A4S-$1.app/Contents/Resources/examples
+	cp -fr Code/Scratch\ Examples/* Releases/$releasename/A4S-$1.app/Contents/Resources/examples
+
+	##Copy A4S##
+	echo "Copying A4S"
+	cp -f Code/A4S/A4S.s2e Releases/$releasename/A4S-$1.app/Contents/Resources/
+	cp -f Code/A4S/A4S.jar Releases/$releasename/A4S-$1.app/Contents/Resources/
+	cp -fr RxTx_Libraries/$bits/$platform/* Releases/$releasename/A4S-$1.app/Contents/Resources/	
+
+	##Echo Version##
+	echo "$releasename 1.4.0.0" > Releases/$releasename/A4S-$1.app/Contents/Resources/Version.txt 	
 fi
