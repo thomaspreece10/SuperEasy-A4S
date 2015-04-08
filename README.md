@@ -26,3 +26,7 @@ After it has finished you should have all the required files assembled in a fold
 
 ##A note about using Build.sh on Windows
 Build.sh is a BASH script. Windows doesn't ship with a BASH shell so you will have to download one. Simply renaming it to .bat will not work. The simplest method to get a bash shell would be to install git as it comes with a program called 'git Bash' will can execute the script fine.
+
+##I tried to translate the A4S.s2e file but it changes nothing…
+A4S.s2e does nothing as it is already combined with the ImportBlocks.sb2, EsploraBlocks_Empty.sb2 and EsploraBlocks_Example.sb2 files. When you load these files it also loads an embedded version of A4S.s2e contained in the sb2 files so changing the external A4S.s2e does nothing.
+To change the embedded version you need to download the offline version of Scratch 2.0. Open up the sb2 file. Goto ‘More Blocks’. Next to A4S click the down arrow and click ‘Remove Extension Blocks’. Now hold the Shift key and click the ‘File’ menu. You should now see the hidden option ‘Import experimental Scratch Extension’. Click it. A dialog pops up, navigate to A4S.s2e and open it. Save sb2 file again. You have now embedded your new version of A4S.s2e into the sb2 file. 
