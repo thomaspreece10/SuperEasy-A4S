@@ -12,3 +12,5 @@ To build you will need to have a license for BlitzMax and have also downloaded a
 [serial.mod] (https://github.com/maxmods/bah.mod)
 [regex.mod] (https://github.com/maxmods/bah.mod)
 [volumes.mod] (https://github.com/maxmods/bah.mod)
+
+Due to the fact BlitzMax isn't free, precompiled versions of the program for Mac OSX and Windows are included in the source.
