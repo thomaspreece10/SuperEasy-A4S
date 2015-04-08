@@ -17,7 +17,7 @@ Const Slash:String="\"
 Const Slash:String="/"
 ?
 
-Const VERSION:String = "V1.3"
+Const VERSION:String = "V1.4"
 
 Global EXPLAINTEXT1:String
 Global EXPLAINTEXT2:String

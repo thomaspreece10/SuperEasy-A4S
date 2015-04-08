@@ -12,10 +12,10 @@
 #include <windows.h>
 
 #if defined(_WIN32_WCE)
-    #include "E:/BlitzMax/mod/wx.mod/include/wx/msw/wince/wince.rc"
+    #include "C:/BlitzMax/mod/wx.mod/include/wx/msw/wince/wince.rc"
 #endif
 
-#include "E:/BlitzMax/mod/wx.mod/include/wx/msw/rcdefs.h"
+#include "C:/BlitzMax/mod/wx.mod/include/wx/msw/rcdefs.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -40,16 +40,16 @@ END
 // Standard wxWindows Cursors
 //
 
-WXCURSOR_HAND           CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/hand.cur"
-WXCURSOR_BULLSEYE       CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/bullseye.cur"
-WXCURSOR_PENCIL         CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/pencil.cur"
-WXCURSOR_MAGNIFIER      CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/magnif1.cur"
-WXCURSOR_ROLLER         CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/roller.cur"
-WXCURSOR_PBRUSH         CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/pbrush.cur"
-WXCURSOR_PLEFT          CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/pntleft.cur"
-WXCURSOR_PRIGHT         CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/pntright.cur"
-WXCURSOR_BLANK          CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/blank.cur"
-WXCURSOR_CROSS          CURSOR  DISCARDABLE     "E:/BlitzMax/mod/wx.mod/include/wx/msw/cross.cur"
+WXCURSOR_HAND           CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/hand.cur"
+WXCURSOR_BULLSEYE       CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/bullseye.cur"
+WXCURSOR_PENCIL         CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/pencil.cur"
+WXCURSOR_MAGNIFIER      CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/magnif1.cur"
+WXCURSOR_ROLLER         CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/roller.cur"
+WXCURSOR_PBRUSH         CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/pbrush.cur"
+WXCURSOR_PLEFT          CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/pntleft.cur"
+WXCURSOR_PRIGHT         CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/pntright.cur"
+WXCURSOR_BLANK          CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/blank.cur"
+WXCURSOR_CROSS          CURSOR  DISCARDABLE     "C:/BlitzMax/mod/wx.mod/include/wx/msw/cross.cur"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -66,14 +66,14 @@ wxICON_AAA                      ICON "microcontroller.ico"
 //wxDEFAULT_MDICHILDFRAME       ICON "wx/msw/child.ico"
 
 // Standard small icons
-wxICON_SMALL_CLOSED_FOLDER      ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/folder1.ico"
-wxICON_SMALL_OPEN_FOLDER        ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/folder2.ico"
-wxICON_SMALL_FILE               ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/file1.ico"
-wxICON_SMALL_COMPUTER           ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/computer.ico"
-wxICON_SMALL_DRIVE              ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/drive.ico"
-wxICON_SMALL_CDROM              ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/cdrom.ico"
-wxICON_SMALL_FLOPPY             ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/floppy.ico"
-wxICON_SMALL_REMOVEABLE         ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/removble.ico"
+wxICON_SMALL_CLOSED_FOLDER      ICON "C:/BlitzMax/mod/wx.mod/include/wx/msw/folder1.ico"
+wxICON_SMALL_OPEN_FOLDER        ICON "C:/BlitzMax/mod/wx.mod/include/wx/msw/folder2.ico"
+wxICON_SMALL_FILE               ICON "C:/BlitzMax/mod/wx.mod/include/wx/msw/file1.ico"
+wxICON_SMALL_COMPUTER           ICON "C:/BlitzMax/mod/wx.mod/include/wx/msw/computer.ico"
+wxICON_SMALL_DRIVE              ICON "C:/BlitzMax/mod/wx.mod/include/wx/msw/drive.ico"
+wxICON_SMALL_CDROM              ICON "C:/BlitzMax/mod/wx.mod/include/wx/msw/cdrom.ico"
+wxICON_SMALL_FLOPPY             ICON "C:/BlitzMax/mod/wx.mod/include/wx/msw/floppy.ico"
+wxICON_SMALL_REMOVEABLE         ICON "C:/BlitzMax/mod/wx.mod/include/wx/msw/removble.ico"
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -81,10 +81,10 @@ wxICON_SMALL_REMOVEABLE         ICON "E:/BlitzMax/mod/wx.mod/include/wx/msw/remo
 //
 
 // For wxContextHelpButton
-csquery                 BITMAP "E:/BlitzMax/mod/wx.mod/include/wx/msw/csquery.bmp"
+csquery                 BITMAP "C:/BlitzMax/mod/wx.mod/include/wx/msw/csquery.bmp"
 
 // For obtaining the RGB values of standard colours
-wxBITMAP_STD_COLOURS    BITMAP "E:/BlitzMax/mod/wx.mod/include/wx/msw/colours.bmp"
+wxBITMAP_STD_COLOURS    BITMAP "C:/BlitzMax/mod/wx.mod/include/wx/msw/colours.bmp"
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -106,11 +106,11 @@ wxBITMAP_STD_COLOURS    BITMAP "E:/BlitzMax/mod/wx.mod/include/wx/msw/colours.bm
 #endif
 
 #if defined(WX_CPU_AMD64)
-wxMANIFEST_ID 24 "E:/BlitzMax/mod/wx.mod/include/wx/msw/amd64.manifest"
+wxMANIFEST_ID 24 "C:/BlitzMax/mod/wx.mod/include/wx/msw/amd64.manifest"
 #elif defined(WX_CPU_IA64)
-wxMANIFEST_ID 24 "E:/BlitzMax/mod/wx.mod/include/wx/msw/ia64.manifest"
+wxMANIFEST_ID 24 "C:/BlitzMax/mod/wx.mod/include/wx/msw/ia64.manifest"
 #elif defined(WX_CPU_X86)
-wxMANIFEST_ID 24 "E:/BlitzMax/mod/wx.mod/include/wx/msw/wx.manifest"
+wxMANIFEST_ID 24 "C:/BlitzMax/mod/wx.mod/include/wx/msw/wx.manifest"
 #else
 // Notice that if the manifest is included, WX_CPU_XXX constant corresponding
 // to the architecture we're compiling for must be defined. This can be done
@@ -127,8 +127,8 @@ wxMANIFEST_ID 24 "E:/BlitzMax/mod/wx.mod/include/wx/msw/wx.manifest"
 
 
 1 VERSIONINFO 
-FILEVERSION 1,0,0,0 
-PRODUCTVERSION 1,0,0,0 
+FILEVERSION 1,4,0,0 
+PRODUCTVERSION 1,4,0,0 
 FILEOS 0x40004
 FILETYPE 0x1
 { 
@@ -138,14 +138,14 @@ BLOCK "StringFileInfo"
  { 
   VALUE "Comments", "Helps start Arduino Helper Server for Scratch."
   VALUE "CompanyName", "" 
-  VALUE "FileVersion", "1.0.0.0" 
-  VALUE "FileDescription", "main" 
-  VALUE "InternalName", "main" 
+  VALUE "FileVersion", "1.4.0.0" 
+  VALUE "FileDescription", "Main" 
+  VALUE "InternalName", "Main" 
   VALUE "LegalCopyright", "" 
   VALUE "LegalTrademarks", "" 
-  VALUE "OriginalFilename", "main.exe" 
-  VALUE "ProductName", "A4S-helperApp" 
-  VALUE "ProductVersion", "1.0.0.0" 
+  VALUE "OriginalFilename", "Main.exe" 
+  VALUE "ProductName", "SuperEasy-A4S" 
+  VALUE "ProductVersion", "1.4.0.0" 
  } 
 }
 BLOCK "VarFileInfo"
