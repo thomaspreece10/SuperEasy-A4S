@@ -762,10 +762,13 @@ Type A4SHelperFrameType Extends wxFrame
 			Return
 		EndIf
 		?Not MacOS
-		Self.UploadProcess = createprocess("ArduinoUploader\ArduinoUploader.exe  "+Chr(34)+GetUserAppDir()+"\A4S\StandardFirmata\StandardFirmata.ino"+Chr(34)+" "+Board+" "+Port,1)
+		A4SHelperLog.AddText("Starting: ArduinoUploader.exe  "+Chr(34)+GetUserAppDir()+"\A4S\StandardFirmata\StandardFirmata.ino"+Chr(34)+" "+Board+" "+Port+" ~n")
+		ChangeDir("ArduinoUploader")
+		Self.UploadProcess = CreateProcess("ArduinoUploader.exe  "+Chr(34)+GetUserAppDir()+"\A4S\StandardFirmata\StandardFirmata.ino"+Chr(34)+" "+Board+" "+Port,1)
+		ChangeDir("..")
 		?MacOS
 		If FileType("/Applications/Arduino.app/Contents/MacOS/JavaApplicationStub")=1 Then 
-			Self.UploadProcess = createprocess("/Applications/Arduino.app/Contents/MacOS/JavaApplicationStub "+Chr(34)+GetUserAppDir()+"/A4S/StandardFirmata/StandardFirmata.ino"+Chr(34),1)
+			Self.UploadProcess = CreateProcess("/Applications/Arduino.app/Contents/MacOS/JavaApplicationStub "+Chr(34)+GetUserAppDir()+"/A4S/StandardFirmata/StandardFirmata.ino"+Chr(34),1)
 		Else
 			MessageBox = New wxMessageDialog.Create(Null , ERROR8 , ERROR6 , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
@@ -984,10 +987,10 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		If Java32Bit = True Then 
 			A4SHelperLog.AddText("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud+"~n")
-			Self.ServerProcess = createprocess("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud)
+			Self.ServerProcess = CreateProcess("java -d32 -jar "+"A4S.jar"+" "+Port+" "+Baud)
 		Else
 			A4SHelperLog.AddText("java -jar "+"A4S.jar"+" "+Port+" "+Baud+"~n")
-			Self.ServerProcess = createprocess("java -jar "+"A4S.jar"+" "+Port+" "+Baud)
+			Self.ServerProcess = CreateProcess("java -jar "+"A4S.jar"+" "+Port+" "+Baud)
 		EndIf	
 		
 		If ServerProcess = Null Then 
