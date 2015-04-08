@@ -1197,11 +1197,16 @@ Function CreateSb2Files()
 	Else
 		Return 2
 	EndIf 
-	If FileType("examples"+Slash+"EsploraBlocks.sb2") = 1 Then
+	If FileType("examples"+Slash+"EsploraBlocks_Example.sb2") = 1 Then
 	
 	Else
 		Return 2
 	EndIf 
+	If FileType("examples"+Slash+"EsploraBlocks_Empty.sb2") = 1 Then
+	
+	Else
+		Return 2
+	EndIf 	
 		
 	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S")=2 Then
 	
@@ -1225,16 +1230,28 @@ Function CreateSb2Files()
 		Return 1
 	EndIf	
 	
-	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks.sb2")=1 Then
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Example.sb2")=1 Then
 	
 	Else
-		CopyFile("examples"+Slash+"EsploraBlocks.sb2",GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks.sb2")
+		CopyFile("examples"+Slash+"EsploraBlocks_Example.sb2",GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Example.sb2")
 	EndIf
-	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks.sb2")=1 Then
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Example.sb2")=1 Then
 	
 	Else
 		Return 1
 	EndIf		
+
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Empty.sb2")=1 Then
+	
+	Else
+		CopyFile("examples"+Slash+"EsploraBlocks_Empty.sb2",GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Empty.sb2")
+	EndIf
+	If FileType(GetUserDocumentsDir()+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Empty.sb2")=1 Then
+	
+	Else
+		Return 1
+	EndIf	
+	
 	
 	Return 0
 End Function 
