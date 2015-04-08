@@ -85,21 +85,27 @@ if [ $2 -eq 1 ]; then
 	echo "Copying A4S-Helper"
 	
 
-	cp Code/A4S-Helper/A4S-$1.exe Releases/$releasename/
+	cp -f Code/A4S-Helper/A4S-$1.exe Releases/$releasename/
+	cp -f Code/A4S-Helper/LanguageFile.txt Releases/$releasename/
 	cd Releases/$releasename/
 	mv A4S-$1.exe Main.exe		
 	cd ../../
 	
-	cp Code/A4S-Helper/{libgcc_s_dw2-1.dll,libgcc_s_sjlj-1.dll,libstdc++-6.dll,LanguageFile.txt} Releases/$releasename/
+	cp Code/A4S-Helper/{libgcc_s_dw2-1.dll,libgcc_s_sjlj-1.dll,libstdc++-6.dll} Releases/$releasename/
 
 	mkdir -p Releases/$releasename/Resources
 	cp -ur Code/A4S-Helper/Resources/* Releases/$releasename/Resources
 
 	##Copy A4S##
 	echo "Copying A4S"
-	cp Code/A4S/{A4S.jar,A4S.s2e} Releases/$releasename/
-	cp RxTx_Libraries/$bits/$platform/* Releases/$releasename/
+	cp -f Code/A4S/A4S.s2e Releases/$releasename/
+	cp -f Code/A4S/A4S.jar Releases/$releasename/
+	cp -u RxTx_Libraries/$bits/$platform/* Releases/$releasename/
 	
 	##Copy Other bits##
-	cp Other/{Help.txt,License.txt} Releases/$releasename/
+	cp -f Other/Help.txt Releases/$releasename/
+	cp -f Other/License.txt Releases/$releasename/
+	
+	##Echo Version##
+	echo "$releasename 1.4.0.0" > Releases/$releasename/Version.txt 
 fi
