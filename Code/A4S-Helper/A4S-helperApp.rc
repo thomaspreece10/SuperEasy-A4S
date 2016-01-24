@@ -138,14 +138,14 @@ BLOCK "StringFileInfo"
  { 
   VALUE "Comments", "Helps start Arduino Helper Server for Scratch."
   VALUE "CompanyName", "" 
-  VALUE "FileVersion", "1.4.0.0" 
+  VALUE "FileVersion", "1.5.0.0" 
   VALUE "FileDescription", "Main" 
   VALUE "InternalName", "Main" 
   VALUE "LegalCopyright", "" 
   VALUE "LegalTrademarks", "" 
   VALUE "OriginalFilename", "Main.exe" 
   VALUE "ProductName", "SuperEasy-A4S" 
-  VALUE "ProductVersion", "1.4.0.0" 
+  VALUE "ProductVersion", "1.5.0.0" 
  } 
 }
 BLOCK "VarFileInfo"

@@ -1,4 +1,6 @@
-﻿#!/bin/bash
+#!/bin/bash
+
+version="1.5.0.0" 
 
 if [ $# -ne 2 ]; then
 	echo "Program handles building of SuperEasy-A4S"
@@ -31,7 +33,7 @@ else
 	exit 0
 fi
 
-#Linux and Mac are not supported yet, exit with error
+#Linux are not supported yet, exit with error
 if [ $platform == "Linux" ]; then
 	echo "Not supported yet"
 	exit 0
@@ -106,8 +108,25 @@ if [ $2 -eq 1 ]; then
 	cp -f Other/Help.txt Releases/$releasename/
 	cp -f Other/License.txt Releases/$releasename/
 	
+	##Copy JRE
+	echo "Copying JRE"
+	if [ -d Releases/$releasename/JRE ]; then
+		echo "JRE already found, NOT overwriting due to size"
+	else
+		#Copy ArduinoUploader if platform is windows
+		echo "Copying JRE folder"
+		mkdir -p Releases/$releasename/JRE
+		for d in Java_Runtime/$bits/$platform/*/ ; do
+			echo "cp -r $d Releases/$releasename/JRE"
+			cp -r $d* Releases/$releasename/JRE
+			break
+		done
+	fi
+	
+
+		
 	##Echo Version##
-	echo "$releasename 1.4.0.0" > Releases/$releasename/Version.txt 
+	echo "$releasename $version" > Releases/$releasename/Version.txt 
 elif [ $2 -eq 2 ]; then 
 	#Building for Mac
 	
@@ -144,5 +163,5 @@ elif [ $2 -eq 2 ]; then
 	cp -fr RxTx_Libraries/$bits/$platform/* Releases/$releasename/A4S-$1.app/Contents/Resources/	
 
 	##Echo Version##
-	echo "$releasename 1.4.0.0" > Releases/$releasename/A4S-$1.app/Contents/Resources/Version.txt 	
+	echo "$releasename $version" > Releases/$releasename/A4S-$1.app/Contents/Resources/Version.txt 	
 fi

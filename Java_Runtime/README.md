@@ -1,0 +1,1 @@
+Due to many problems we now bundle JRE with our program. Also as we no longer rely on user's java version we typically only bundle 32 bit version.
