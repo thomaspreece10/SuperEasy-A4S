@@ -1,0 +1,7 @@
+# This file allows you to hide tabs within SuperEasy-A4S. 
+# So if you want to hide Step 1 and Step 2, all you need to do is alter this file.
+# Note: Do NOT add extra lines to this file
+# Hide Step 1? (1 = Yes, 0 = No)
+0
+# Hide Step 2? (1 = Yes, 0 = No)
+0

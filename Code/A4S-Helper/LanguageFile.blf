@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<locale default="en">
+  <tag name="Tab1ExplainText_WIN">
+    <trans lang="en">Firstly we need to install the drivers of our Arduino board. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step.
+	
+INSTRUCTIONS 
+
+A) Plug one end of your USB cable into the Arduino and the other into a USB socket on your computer. The power light on the LED will light up and you may get a 'Found New Hardware' message from Windows. Ignore this message and cancel any attempts that Windows makes to try and install drivers automatically for you.
+
+B) We now load up the Device Manager. This is accessed in different ways depending on your version of Windows. In Windows Vista/7, you first have to open the Control Panel, then select View by: 'Large icons', and you should find 'Device Manager' in the list. In Windows XP, first open Control Panel then click 'Administrative Tools' then 'Computer Management' and then select 'Device Manager' from the list on the left.
+
+C) Under the section 'Other Devices' you should see an icon for 'unknown device' with a little yellow warning triangle next to it. This is your Arduino.
+
+D) Right-click on the device and select the top menu option (Update Driver Software...). You will then be prompted in Windows Vista/7 to either 'Search Automatically for updated driver software' or 'Browse my computer for driver software'. Or prompted in Windows XP to 'Install the software automatically' or 'Install from a list or specific location'. Select the option 'Browse my computer for driver software'/'Install from a list or specific location' and navigate to the drivers folder contained within this programs folder.
+
+E) Click 'Next' and you may get a security warning, if so, allow the software to be installed. Once the software has been installed, you will get a confirmation message.
+
+F) Now proceed to step 2.
+
+[Credit for the above text goes to: https://learn.adafruit.com/lesson-0-getting-started/installing-arduino-windows]</trans>
+  </tag>
+  <tag name="Tab1ExplainText_MAC">
+    <trans lang="en">Firstly we need to install the Arduino program and in some cases a driver. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step
+	
+INSTRUCTIONS
+
+A) Goto http://arduino.cc/en/Main/Software and download the latest stable version of the Arduino IDE, at time of writing that is version 1.0.5. 
+
+B) Now install the Arduino program into your Applications folder. 
+
+C) If you're using an older board ( Duemilanove, Diecimila, or any board with an FTDI driver chip that looks like the picture here: http://arduino.cc/en/Guide/MacOSX#toc3 ) you will need to install the drivers for the FTDI chip on the board. To get the drivers see http://www.ftdichip.com/Drivers/VCP.htm. 
+
+D) Plug in your Arduino, if any windows pop up you can close them off. Now continue to step 2.</trans>
+  </tag>
+  <tag name="Tab1ExplainText_LIN">
+    <trans lang="en">Firstly we need to install some dependencies. If you have already done this step before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step. 
+	
+INSTRUCTIONS
+
+A) You will need to be a system admin to perform these steps. Either login to an admin account or prefix 'sudo ' to all of the following commands when entering them.
+
+B) Open a Terminal up. You can do this on Ubuntu by pressing Ctrl+Alt+T, or by opening any of LXTerminal, UXTerm or XTerm from your programs menu.
+
+C) This program needs to be able to access the arduino IDE so you will need to install the arduino package. To do this type 'apt-get install arduino arduino-core librxtx-java' into the terminal and press enter. Don't forget that you may need to prefix it with sudo as suggested in A, e.g. 'sudo apt-get install arduino arduino-core librxtx-java'.
+
+D) Next we need to give yourself write access to your arduino. For ubuntu based systems type 'usermod -a -G dialout [MY_USER_NAME]' into the terminal, where you replace [MY_USER_NAME] with your username.
+
+E) To finish the setup you will need to either logout and back in again or reboot your computer.
+
+</trans>
+  </tag>
+
+  
+  <tag name="Tab2ExplainText_WIN">
+    <trans lang="en">Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2. 
+
+INSTRUCTIONS 
+
+A) Firstly select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong COM port the program will fail to upload so a trial and error approach may work to find out which COM port your Arduino is.
+
+B) Next select the model of your Arduino board. It should say the model name on the actual board itself.
+
+C) Finally click upload and wait for the 'Status of Upload' to say finished then move onto step 2</trans>
+  </tag>  
+
+  <tag name="Tab2ExplainText_MAC">
+    <trans lang="en">Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2.
+
+INSTRUCTIONS
+
+A) Firstly select the port your Arduino is plugged into below, there is often only 1 selectable port so that is most likely your Arduino. 
+
+B) Next click the 'Start Arduino IDE' button and wait for the Arduino program to load up.
+
+C) In the Arduino program go to the 'Tools' menu and then 'Serial Port' and select the port your Arduino is plugged into, same as you did for step A.
+
+D) Now go again to the 'Tools' menu and then 'Board' and select the the model of your Arduino board. It should say the model name on the actual board itself.
+
+E) Now on the Arduino window you will see some greenish coloured buttons. Hover your mouse over the second from the left. It should now say 'Upload', click it. 
+
+F) Wait for the Arduino program to say 'Done Uploading'. Then close the Arduino program and goto step 3.</trans>
+  </tag>
+  <tag name="Tab2ExplainText_LIN">
+    <trans lang="en">Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2.
+
+INSTRUCTIONS
+
+A) Firstly select the port your Arduino is plugged into below, there is often only 1 selectable port so that is most likely your Arduino. 
+
+B) Next click the 'Start Arduino IDE' button and wait for the Arduino program to load up.
+
+C) In the Arduino program go to the 'Tools' menu and then 'Serial Port' and select the port your Arduino is plugged into, same as you did for step A.
+
+D) Now go again to the 'Tools' menu and then 'Board' and select the the model of your Arduino board. It should say the model name on the actual board itself.
+
+E) Now on the Arduino window you will see some greenish coloured buttons. Hover your mouse over the second from the left. It should now say 'Upload', click it. 
+
+F) Wait for the Arduino program to say 'Done Uploading'. Then close the Arduino program and goto step 3.</trans>
+  </tag>
+
+  <tag name="Tab3ExplainText">
+    <trans lang="en">Now we need to start the helper application that communicates between the Arduino and scratch. This must be running the whole time while you are using Arduino in your scratch sketch.
+
+INSTRUCTIONS 
+
+A) As in step 2, select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. 
+
+B) Now click Start Helper App and wait for 'Status of Helper App' to say 'Started!'
+
+C) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch (which can be found in the examples folder within the A4S program folder). 
+This can be done by going To File->Open in the offline Scratch Editor Or by File->'Upload from your Computer' in the online editor. (You will have to click the dropdown in the bottom right and select Scratch 2 Project to be able to see the ImportBlocks.sb2 file)</trans>
+  </tag> 
+
+  <tag name="AppTitle">
+    <trans lang="en">Arduino Scratch Server Starter</trans>
+  </tag>  
+  <tag name="AppLogTitle">
+    <trans lang="en">Debug Log</trans>
+  </tag>  
+  <tag name="AboutApp">
+    <trans lang="en">This is an application that handles automatically all the complicated parts of using Arduino with Scratch</trans>
+  </tag>  
+  <tag name="DevWeb">
+    <trans lang="en">Developers personal website</trans>
+  </tag>  
+
+
+  <tag name="TabStep">
+    <trans lang="en">Step</trans>
+  </tag> 
+  <tag name="Tab1_WIN">
+    <trans lang="en">Arduino Driver</trans>
+  </tag>  
+  <tag name="Tab1_MAC">
+    <trans lang="en">Arduino Installation</trans>
+  </tag>  
+  <tag name="Tab1_LIN">
+    <trans lang="en">Setup</trans>
+  </tag>  
+  <tag name="Tab2">
+    <trans lang="en">Uploading</trans>
+  </tag>    
+  <tag name="Tab3">
+    <trans lang="en">Start Server</trans>
+  </tag>      
+
+
+  <tag name="BaudRate">
+    <trans lang="en">Baud Rate: </trans>
+  </tag>     
+  <tag name="Port">
+    <trans lang="en">Port: </trans>
+  </tag>  
+  <tag name="Refresh">
+    <trans lang="en">Refresh</trans>
+  </tag>  
+  <tag name="Board">
+    <trans lang="en">Board: </trans>
+  </tag>  
+  <tag name="UploadStatus_WIN">
+    <trans lang="en">Status of Upload: </trans>
+  </tag>    
+  <tag name="UploadStatus_MAC">
+    <trans lang="en">Status of Arduino IDE: </trans>
+  </tag>    
+  <tag name="UploadStatus_LIN">
+    <trans lang="en">Status of Arduino IDE: </trans>
+  </tag>   
+  <tag name="HelperStatus">
+    <trans lang="en">Status of Helper App: </trans>
+  </tag>  
+
+
+  <tag name="MenuQuit">
+    <trans lang="en">&amp;Quit</trans>
+  </tag>
+  <tag name="MenuDebugLog">
+    <trans lang="en">&amp;Debug Log</trans>
+  </tag>
+  <tag name="MenuFile">
+    <trans lang="en">&amp;File</trans>
+  </tag>
+  <tag name="MenuView">
+    <trans lang="en">&amp;View</trans>
+  </tag>
+  <tag name="MenuAbout">
+    <trans lang="en">&amp;About</trans>
+  </tag>  
+  <tag name="MenuTAdvOpt">
+    <trans lang="en">Toggle Advanced &amp;Options</trans>
+  </tag>   
+
+  <tag name="ButtonUpload_WIN">
+    <trans lang="en">Start Upload</trans>
+  </tag>    
+  <tag name="ButtonUpload_MAC">
+    <trans lang="en">Start Arduino IDE</trans>
+  </tag>    
+  <tag name="ButtonUpload_LIN">
+    <trans lang="en">Start Arduino IDE</trans>
+  </tag>    
+  <tag name="ButtonFinished_WIN">
+    <trans lang="en">Finished Upload. Upload Again?</trans>
+  </tag>     
+  <tag name="ButtonFinished_MAC">
+    <trans lang="en">Start Arduino IDE Again?</trans>
+  </tag>     
+  <tag name="ButtonFinished_LIN">
+    <trans lang="en">Start Arduino IDE Again?</trans>
+  </tag>     
+  <tag name="ButtonStop">
+    <trans lang="en">Stop</trans>
+  </tag> 
+  <tag name="ButtonStartHelper">
+    <trans lang="en">Start Helper App</trans>
+  </tag> 
+
+  <tag name="ErrorPortBoard">
+    <trans lang="en">Please Select a Port and Board</trans>
+  </tag>  
+  <tag name="ErrorClose_WIN">
+    <trans lang="en">Closing now may cause damage to your Arduino if you do not wait for it to finish. Do you still wish to close?</trans>
+  </tag>  
+  <tag name="ErrorClose_MAC">
+    <trans lang="en">Closing now will close the Arduino IDE. Do you still wish to close?</trans>
+  </tag>  
+  <tag name="ErrorClose_LIN">
+    <trans lang="en">Closing now will close the Arduino IDE. Do you still wish to close?</trans>
+  </tag> 
+  <tag name="ErrorPort">
+    <trans lang="en">Please Select a Port</trans>
+  </tag>  
+  <tag name="ErrorHelperStart">
+    <trans lang="en">Helper App could not start.</trans>
+  </tag>  
+  <tag name="ErrorArduinoUploader">
+    <trans lang="en">ArduinoUploader could not start.</trans>
+  </tag>  
+  <tag name="ErrorTitle">
+    <trans lang="en">Error</trans>
+  </tag>  
+  <tag name="QuestionTitle">
+    <trans lang="en">Question</trans>
+  </tag>
+  <tag name="ErrorGenArduinoCode">
+    <trans lang="en">Failed to generate Firmata code</trans>
+  </tag>  
+  <tag name="ErrorInstallIDE_MAC">
+    <trans lang="en">Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)</trans>
+  </tag>  
+  <tag name="ErrorFindScratchFiles">
+    <trans lang="en">Cannot find Scratch Files.</trans>
+  </tag>  
+  <tag name="ErrorCopyScratchFiles">
+    <trans lang="en">Cannot copy Scratch Files.</trans>
+  </tag>    
+  
+
+  <tag name="StatusNotStarted">
+    <trans lang="en">Not Started Yet</trans>
+  </tag>   
+  <tag name="StatusStopped">
+    <trans lang="en">Stopped</trans>
+  </tag>   
+  <tag name="StatusStoppedUser">
+    <trans lang="en">Stopped By User</trans>
+  </tag>   
+  <tag name="StatusError">
+    <trans lang="en">Error (see log)</trans>
+  </tag>   
+  <tag name="StatusFinished">
+    <trans lang="en">Finished</trans>
+  </tag>   
+  <tag name="StatusUploading">
+    <trans lang="en">Uploading...</trans>
+  </tag>   
+  <tag name="StatusCompiling">
+    <trans lang="en">Compiling...</trans>
+  </tag>     
+  <tag name="StatusStarted">
+    <trans lang="en">Started!</trans>
+  </tag>   
+  <tag name="StatusStartedNormal">
+    <trans lang="en">Started</trans>
+  </tag>   
+  <tag name="StatusStarting">
+    <trans lang="en">Starting...</trans>
+  </tag>  
+
+  <tag name="NoProductName">
+    <trans lang="en">[No Product Name]</trans>
+  </tag>  
+
+
+
+
+</locale>

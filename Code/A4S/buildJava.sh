@@ -30,13 +30,19 @@ else
 	exit 0
 fi
 
+rm A4S.jar 
+if [ -e "A4S.jar" ]; then 
+	echo "Could Not Remove A4S.jar"
+	exit 1
+fi 
+
 classpath="../../RxTx_Libraries/$bits/$platform/RXTXcomm.jar"
 echo "Building Java Library for $bits $platform"
 echo "Using native library: $classpath"
 
 javac -classpath $classpath A4S.java processing/src/Firmata.java
 mkdir -p org/firmata
-cp processing/src/*.class org/firmata/
+cp processing/src/* org/firmata/
 jar -cfm A4S.jar manifest.mf *.class org/firmata/*.class
 rm *.class org/firmata/*.class
 
