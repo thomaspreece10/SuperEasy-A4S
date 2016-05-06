@@ -1178,18 +1178,17 @@ Function ModifyFirmataSource(Baud:String)
 End Function
 
 Function CreateSb2Files()
-	Notify UserDocumentsDir
-	If FileType("examples"+Slash+"ImportBlocks.sb2") = 1 Then
+	If FileType("examples"+Slash+"en_ImportBlocks.sb2") = 1 Then
 	
 	Else
 		Return 2
 	EndIf 
-	If FileType("examples"+Slash+"EsploraBlocks_Example.sb2") = 1 Then
+	If FileType("examples"+Slash+"en_EsploraBlocks_Example.sb2") = 1 Then
 	
 	Else
 		Return 2
 	EndIf 
-	If FileType("examples"+Slash+"EsploraBlocks_Empty.sb2") = 1 Then
+	If FileType("examples"+Slash+"en_EsploraBlocks_Empty.sb2") = 1 Then
 	
 	Else
 		Return 2
@@ -1206,39 +1205,20 @@ Function CreateSb2Files()
 		Return 1
 	EndIf
 	
-	If FileType(UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"ImportBlocks.sb2")=1 Then
-	
-	Else
-		CopyFile("examples"+Slash+"ImportBlocks.sb2",UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"ImportBlocks.sb2")
-	EndIf
-	If FileType(UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"ImportBlocks.sb2")=1 Then
-	
-	Else
-		Return 1
-	EndIf	
-	
-	If FileType(UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Example.sb2")=1 Then
-	
-	Else
-		CopyFile("examples"+Slash+"EsploraBlocks_Example.sb2",UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Example.sb2")
-	EndIf
-	If FileType(UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Example.sb2")=1 Then
-	
-	Else
-		Return 1
-	EndIf		
-
-	If FileType(UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Empty.sb2")=1 Then
-	
-	Else
-		CopyFile("examples"+Slash+"EsploraBlocks_Empty.sb2",UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Empty.sb2")
-	EndIf
-	If FileType(UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+"EsploraBlocks_Empty.sb2")=1 Then
-	
-	Else
-		Return 1
-	EndIf	
-	
+	Local ScratchFilesDir:Int = ReadDir("examples"+Slash)
+	Local ScratchFile:String = ""
+	Repeat
+		ScratchFile=NextFile( ScratchFilesDir )
+		If ScratchFile="" Exit
+		If ScratchFile="." Or ScratchFile=".." Continue
+		CopyFile("examples"+Slash+ScratchFile,UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+ScratchFile)
+		If FileType(UserDocumentsDir+Slash+"SuperEasy-A4S"+Slash+ScratchFile)=1 Then		
+		
+		Else
+			Return 1
+		EndIf 
+	Forever	
+	CloseDir(ScratchFilesDir)
 	
 	Return 0
 End Function 
