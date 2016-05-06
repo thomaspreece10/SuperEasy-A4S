@@ -47,13 +47,14 @@ Const BCB:Int = 10
 Const TADO:Int = 11
 Const BACB:Int = 12
 Const BACB2:Int = 13
+'1000+ reserved for Language menu
 ?Win32
 Const Slash:String="\"
 ?Not Win32
 Const Slash:String="/"
 ?
 
-Const VERSION:String = "V1.6"
+Const VERSION:String = "V1.6.1"
 
 ?Win32
 Global AppResources:String=""
@@ -77,12 +78,13 @@ Global JavaLocation:String = ""
 ChangeDir(AppResources)
 
 LoadLocaleFile("LanguageFile.blf")
-SetCurrentLocale(GetDefaultLocale() )
+
+SetCurrentLocale(GetDefaultLocale())
 
 Global PortSelection:Int = 0
 Global BoardSelection:Int = 0
 Global BaudSelection:Int = 9
-
+Global Language:String = ""
 Global ShowFirstTab:Int = True
 Global ShowSecondTab:Int = True
 
@@ -129,7 +131,23 @@ SettingsFile = ReadFile(UserAppDir+Slash+"SuperEasy-A4S"+Slash+"Settings.txt")
 PortSelection = Int(ReadLine(SettingsFile))
 BoardSelection = Int(ReadLine(SettingsFile))
 BaudSelection = Int(ReadLine(SettingsFile))
+Language = String(ReadLine(SettingsFile))
 CloseFile(SettingsFile)
+
+If Language = GetCurrentLocale() Then 
+	'Continue
+Else
+	Local ValidLocales:String[] = GetAvailableLocales()
+	Local Locale:String 
+	For Locale = EachIn ValidLocales 
+		If Language = Locale Then 
+			SetCurrentLocale(Language)
+			Exit
+		EndIf 
+	Next
+EndIf
+
+Language = GetCurrentLocale()
 
 Global BOARDCHOICES:String[] = ["1 - Arduino Uno","2 - Arduino Leonardo","3 - Arduino Esplora","4 - Arduino Micro","5 - Arduino Duemilanove (328)","6 - Arduino Duemilanove (168)","7 - Arduino Nano (328)","8 - Arduino Nano (168)","9 - Arduino Mini (328)","10 - Arduino Mini (168)","11 - Arduino Pro Mini (328)","12 - Arduino Pro Mini (168)","13 - Arduino Mega 2560/ADK","14 - Arduino Mega 1280","15 - Arduino Mega 8","16 - Microduino Core+ (644)","17 - Freematics OBD-II Adapter"]
 Global BAUDCHOICES:String[] = ["300","1200","2400", "4800", "9600", "14400", "19200", "28800", "38400", "57600", "115200"]
@@ -213,8 +231,21 @@ Type A4SHelperFrameType Extends wxFrame
 		Local ViewMenu:wxMenu = New wxMenu.Create()
 		ViewMenu.Append(TLOG, GetLocaleText("MenuDebugLog"))
 		ViewMenu.Append(TADO, GetLocaleText("MenuTAdvOpt"))
+	
+		Local LanguageMenu:wxMenu = New wxMenu.Create()
+		Local AvailableLocales:String[] = GetAvailableLocales()
+		Local Locale:String
+		Local i:Int = 0 
+		For Locale = EachIn AvailableLocales
+			LanguageMenu.Append(1000+i,Locale+" - "+GetLanguage(Locale))
+			Connect(1000+i , wxEVT_COMMAND_MENU_SELECTED , SetLanguageFun, Locale)
+			i=i+1
+		Next 
+		
+		
 		MenuBar.Append(FileMenu, GetLocaleText("MenuFile"))
 		MenuBar.Append(ViewMenu, GetLocaleText("MenuView"))
+		MenuBar.Append(LanguageMenu, GetLocaleText("MenuLanguage"))		
 		Self.SetMenuBar(MenuBar)
 		
 
@@ -455,6 +486,16 @@ Type A4SHelperFrameType Extends wxFrame
 		ConnectAny(wxEVT_CLOSE , CloseFun)
 	End Method
 	
+	Function SetLanguageFun(event:wxEvent)
+		Language = (String(event.userData)) 
+		UpdateSettings()
+		Local MessageBox:wxMessageDialog 
+		MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("RestartMessage") , GetLocaleText("ErrorTitle") , wxOK | wxICON_INFO)
+		MessageBox.ShowModal()
+		MessageBox.Free()	
+		End 	
+	End Function 
+	
 	Function ToggleAdvancedOptionsFun(event:wxEvent)
 		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
 		A4SHelperFrame.ToggleAdvancedOptions()
@@ -627,7 +668,7 @@ Type A4SHelperFrameType Extends wxFrame
 			Local Baud:String = A4SHelperFrame.BaudComboBox.GetValue()
 			Local MessageBox:wxMessageDialog 
 			If Port = "" Or Port = " " Or Board=0 Then
-				MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorPortBoard") , GetLocaleText("StatusError") , wxOK | wxICON_ERROR)
+				MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorPortBoard") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 				MessageBox.ShowModal()
 				MessageBox.Free()	
 				Return 
@@ -657,8 +698,11 @@ Type A4SHelperFrameType Extends wxFrame
 		A4SHelperLog.AddText("Starting Upload on "+Port+" ~n")
 		StatusText.SetLabel(GetLocaleText("StatusStartedNormal"))
 		StatusText.SetForegroundColour(New wxColour.createcolour(255,140,0))	
-		If ModifyFirmataSource(Baud)=1 Then
-			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorGenArduinoCode") , GetLocaleText("StatusError") , wxOK | wxICON_ERROR)
+		Local ModifySourceStatus:Int = ModifyFirmataSource(Baud)
+		If ModifySourceStatus = 0	
+		
+		Else 
+			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorGenArduinoCode")+": "+ModifySourceStatus , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
 			MessageBox.Free()	
 			?Win
@@ -698,7 +742,7 @@ Type A4SHelperFrameType Extends wxFrame
 		Local s:String
 		
 		If UploadProcess = Null Then 
-			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorArduinoUploader") , GetLocaleText("StatusError") , wxOK | wxICON_ERROR)
+			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorArduinoUploader") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
 			MessageBox.Free()	
 			?Win
@@ -741,7 +785,7 @@ Type A4SHelperFrameType Extends wxFrame
 			StatusText.SetForegroundColour(New wxColour.createcolour(255,0,0))
 		EndIf 
 		?Not Win32
-		'Mac version just loads up Arduino Environment, so always show finished correctly status
+		'Mac and linux version just loads up Arduino Environment, so always show finished correctly status
 		StatusText.SetLabel(GetLocaleText("StatusFinished"))
 		StatusText.SetForegroundColour(New wxColour.createcolour(0,120,0))		
 		?
@@ -885,7 +929,7 @@ Type A4SHelperFrameType Extends wxFrame
 			Local Baud:String = A4SHelperFrame.BaudComboBox2.GetValue()
 			Local MessageBox:wxMessageDialog 
 			If Port = "" Or Port = " " Then
-				MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorPort") , GetLocaleText("StatusError") , wxOK | wxICON_ERROR)
+				MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorPort") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 				MessageBox.ShowModal()
 				MessageBox.Free()	
 				Return 
@@ -928,7 +972,7 @@ Type A4SHelperFrameType Extends wxFrame
 		EndIf	
 		
 		If ServerProcess = Null Then 
-			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorHelperStart") , GetLocaleText("StatusError") , wxOK | wxICON_ERROR)
+			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorHelperStart") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
 			MessageBox.Free()	
 			ServerButton.SetLabel(GetLocaleText("ButtonStartHelper"))
@@ -1091,6 +1135,7 @@ Function UpdateSettings()
 	WriteLine(SettingsFile,PortSelection)
 	WriteLine(SettingsFile,BoardSelection)
 	WriteLine(SettingsFile,BaudSelection)
+	WriteLine(SettingsFile,Language)
 	CloseFile(SettingsFile)
 End Function
 
@@ -1104,6 +1149,11 @@ Function ModifyFirmataSource(Baud:String)
 	
 	Else
 		CreateDir(UserAppDir+Slash+"SuperEasy-A4S"+Slash+"StandardFirmata")
+		If FileType(UserAppDir+Slash+"SuperEasy-A4S"+Slash+"StandardFirmata")=2 Then
+		
+		Else
+			Return 2
+		EndIf 
 	EndIf
 	
 	Local NewFirmata:TStream
@@ -1111,6 +1161,9 @@ Function ModifyFirmataSource(Baud:String)
 	Local Line:String
 	NewFirmata = WriteFile(UserAppDir+Slash+"SuperEasy-A4S"+Slash+"StandardFirmata"+Slash+"StandardFirmata.ino")
 	OldFirmata = ReadFile("ArduinoUploader"+Slash+"StandardFirmataTemplate"+Slash+"StandardFirmataTemplate.ino")
+	If NewFirmata = Null Or OldFirmata = Null Then 
+		Return 3
+	EndIf 
 	Repeat
 		Line = ReadLine(OldFirmata)
 		If Instr(Line,"##BaudRatePlaceHolder##") Then

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<locale default="en">
+<locale default="es">
   <tag name="Tab1ExplainText_WIN">
     <trans lang="en">Firstly we need to install the drivers of our Arduino board. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step.
 	
@@ -18,6 +18,40 @@ E) Click 'Next' and you may get a security warning, if so, allow the software to
 F) Now proceed to step 2.
 
 [Credit for the above text goes to: https://learn.adafruit.com/lesson-0-getting-started/installing-arduino-windows]</trans>
+<trans lang="ca">Primer ens calen instal·lar algunes dependències. Si heu fet aquest pas abans procediu amb el pas 2. Si esteu en una escola cal que confirmeu amb el vostre professor que s'ha fet aquest pas.
+	
+INSTRUCCIONS
+
+A) Connecteu un cable USB a l'Arduino i l'altre al vostre ordinador. S'engegarà un LED a l'Arduino i trobareu al Windows el missatge «S'ha trobat maquinari nou». Ignoreu aquest missatge i cancel·leu qualsevol intent de Windows d'instal·lar controladors de forma automàtica.
+
+B) Anem a carregar el gestor de dispositius. A aquest s'accedeix de forma diferent depenent de la versió de Windows. En Windows Vista/7, cal que obriu el panel de control, llavors seleccioneu la vista per: 'Icones grans', i haurieu de trobar «Gestor de dispositius» a la llista. En Windows XP, primer obriu el panel de control i premeu «Eines d'administració» deprés «Administració de l'ordinador» i seleccioneu «Gestor de dispositius» de la llista de l'esquerra.
+
+C) Sota la secció «Altres dispositius» hauríeu de veure la icona «Dispositiu desconegut» amb un petit triangle d'advertència groc al costat d'ell. Aquest és arduino.
+
+D) Premeu el botó dret sobre el dispositiu i seleccioneu la opció superior del menú (Actualitza el controlador de dispositiu...). Veureu un missatge en Windows Vista/7 «Cerca de forma automàtica l'actualització del programari del controlador» o «Cercar al meu ordinador el programari del controlador». O veuràs en Windows XP «Instal·la el programari de forma automàtica» o «Instal·la des d'una llista o un lloc espcífic». Seleccioneu l'opció «Explora el meu ordinador per trobar el programari de l'ordinador»/«Instal·la des d'una llista o una ubicació especifica» i navega fins la carpeta dels controladors dins d'aquesta carpeta de programes.
+
+E) Premeu «Següent» i veureu un avís de seguretat, si és així, doneu permís al programari per instal·lar-se. Una vegada s'hagi instal·lat el programari, rebreu un missatge de confirmació.
+
+F) Ara procediu amb el pas 2.
+
+[El crèdit per al text superior és per: https://learn.adafruit.com/lesson-0-getting-started/installing-arduino-windows]</trans>
+<trans lang="es">Primero nos hace falta instalar algunas dependencias. Si habéis hecho este paso antes proceded con el paso 2. Si estáis en una escuela confirmad con vuestro profesor que habéis hecho este paso.
+	
+INSTRUCCIONES
+
+A) Conectad un cable USB al Arduino y el otro a vuestro ordenador. Se encenderá un LED en Arduino y encontraréis en Windows el mensaje «Se ha encontrado hardware nuevo». Ignorad este mensaje y cancelad cualquier intento de Windows de instalar controladores de forma automática. 
+
+B) Vamos a cargar el gestor de dispositivos. A este se accede de forma diferente dependiendo de la versión de Windows. En Windows Vista/7, hace falta que abráis el panel de control, entonces seleccionáis la vista por: 'Iconos grandes', y tenéis que encontrar «Gestor de dispositivos» de la lista. En Windows XP, primero abrís el panel de control y pulsáis «Herramientas de administración» después «Administración del ordenador» y seleccionáis «Gestor de dispositivos» de la lista de la izquierda.
+
+C) Bajo la sección «Otras dispositivos» tendríais de ver el icono «Dispositivo desconocido» con un pequeño triángulo de advertencia amarillo junto a él. Este es arduino.
+
+D) Pulsad el botón derecho sobre el dispositivo y seleccionáis la opción superior del menú (Actualiza el controlador de dispositivo...). Veréis un mensaje en Windows Vista/7 «Busca de forma automática la actualización del software del controlador» o «Buscar a mi ordenador el software del controlador». O verás en Windows XP «Instala el software de forma automática» o «Instala desde una lista o un lugar específico». Seleccionáis la opción «Explora mi ordenador para encontrar el software del ordenador»/«Instala desde una lista o una ubicación especifica» y navega hasta la carpeta de los controladores dentro de esta carpeta de programas.
+
+E) Pulsad «Siguiente» y veréis un aviso de seguridad, si es así, dáis permiso al software para instalarse. Una vez se haya instalado el software, recibiréis un mensaje de confirmación.
+
+F) Ahora procedéis con el paso 2.
+
+[El crédito para el texto superior es para: https://learn.adafruit.com/lesson-0-getting-started/installing-arduino-windows]</trans>
   </tag>
   <tag name="Tab1ExplainText_MAC">
     <trans lang="en">Firstly we need to install the Arduino program and in some cases a driver. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step
@@ -31,6 +65,28 @@ B) Now install the Arduino program into your Applications folder.
 C) If you're using an older board ( Duemilanove, Diecimila, or any board with an FTDI driver chip that looks like the picture here: http://arduino.cc/en/Guide/MacOSX#toc3 ) you will need to install the drivers for the FTDI chip on the board. To get the drivers see http://www.ftdichip.com/Drivers/VCP.htm. 
 
 D) Plug in your Arduino, if any windows pop up you can close them off. Now continue to step 2.</trans>
+<trans lang="ca">Primer ens cal instal·lar Arduino i en alguns casos un controlador. Si heu fet aquest pas abans procediu amb el pas 2. Si esteu en una escola cal que confirmeu amb el vostre professor que s'ha fet aquest pas.
+	
+INSTRUCCIONS
+
+A) Aneu a http://arduino.cc/en/Main/Software i baixeu la darrera versió estable de l'IDE d'Arduino, al moment fer aquest escrit és la versió 1.0.5. 
+
+B) A continuació instal·leu el programa Arduino dins la carpeta d'aplicacions.
+
+C) Si esteu usant una placa antiga ( Duemilanove, Diecimila, o qualsevol placa on el integrat FTDI és com el de la figura aquesta: http://arduino.cc/en/Guide/MacOSX#toc3 ) us caldrà instal·lar el connectors per a l'integrat FTDI de la placa. Per obtindre els controladors mireu http://www.ftdichip.com/Drivers/VCP.htm. 
+
+D) Connecteu Arduino, si no s'obre cap finestra tanqueu-ho. Ara ja podeu anar al pas 2.</trans>
+<trans lang="es">Primero hay que instalar Arduino y en algunos casos un controlador. Si habéis hecho este paso antes procedéis con el paso 2. Si estáis en una escuela hace falta que confirméis con vuestro profesor que se ha hecho este paso.
+	
+INSTRUCCIONES
+
+A) Id a http://arduino.cc/en/Main/Software y bajáis la última versión estable de la IDE de Arduino, en el momento hacer este escrito es la versión 1.0.5.
+
+B) A continuación instaláis el programa Arduino dentro de la carpeta de aplicaciones.
+
+C) Si estáis usando una placa antigua ( Duemilanove, Diecimila, o cualquier placa donde el integrado FTDI es como el de la figura esta: http://arduino.cc/en/Guide/MacOSX#toc3 ) tendréis que instalar los controladores para el integrado FTDI de la placa. Para obtener los controladores mirad http://www.ftdichip.com/Drivers/VCP.htm. 
+
+D) Conectad Arduino, si no se abre ninguna ventana cerradlo. Ahora ya podéis ir al paso 2.</trans>
   </tag>
   <tag name="Tab1ExplainText_LIN">
     <trans lang="en">Firstly we need to install some dependencies. If you have already done this step before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step. 
@@ -48,6 +104,36 @@ D) Next we need to give yourself write access to your arduino. For ubuntu based 
 E) To finish the setup you will need to either logout and back in again or reboot your computer.
 
 </trans>
+<trans lang="ca">Primerament ens calen instal·lar algunes dependències. Si heu fet aquest pas abans procediu amb el pas 2. Si esteu en una escola cal que confirmeu amb el vostre professor que s'ha fet aquest pas. 
+	
+INSTRUCCIONS
+
+A) Cal que sigau administrador del sistema per fer aquests passos. Ja sigui per que entreu al compte d'administrador o useu el prefix «sudo» per totes les ordres que s'escriuen a continuació.
+
+B) Obriu un terminal. Podeu fer això en Ubuntu prement  Ctrl+Alt+T, o obrint LXTerminal, UXTerm o XTerm al vostre menú.
+
+C) Aquest programa necessita que accediu al IDE d'Arduino, per a això cal que instal·leu el paquet arduino. Per fer això teclegeu «apt-get install arduino arduino-core librxtx-java» al terminal i premeu INTRO. No oblideu que us cal pel prefix «sudo» suggerit al punt A, ex:  « sudo apt-get install arduino arduino-core librxtx-java ».
+
+D) A continuació cal que us doneu permís per accedir a arduino. En Ubuntu i derivats useu l'ordre « sudo usermod -a -G dialout [NOM_USUARI] » dins d'un terminal, on [NOM_USUARI]  el canviareu pel vostre nom d'usuari.
+
+E) Per acabar la configuració us cal reiniciar el vostre ordinador o tancar la sessió i tornar a entrar.
+
+</trans>
+<trans lang="es">Primero nos hace falta instalar algunas dependencias. Si habéis hecho este paso antes proceded con el paso 2. Si estáis en una escuela confirmad con vuestro profesor que habéis hecho este paso. 
+	
+INSTRUCCIONES
+
+A) Hace falta que seáis administrador del sistema para hacer estos pasos. Ya sea por que entráis en la cuenta de administrador o usáis el prefijo «sudo» por todas las órdenes que se escriben a continuación.
+
+B) Abrid un terminal. Podéis hacer esto en Ubuntu pulsando Ctrl+Alt+T, o abriendo LXTerminal, UXTerm o XTerm en vuestro menú.
+
+C) Este programa necesita que accedáis al IDE de Arduino, para lo cual hace falta que instaléis el paquete Arduino. Para hacer esto tecleáis «apt-get install arduino arduino-core librxtx-java» al terminal y pulsáis INTRO. No olvidéis que os hace falta el prefijo «sudo» sugerido en su punto A, ej: « sudo apt-get install arduino arduino-core librxtx-java ».
+
+D) A continuación hace falta que os deis permiso para acceder a Arduino. En Ubuntu y derivados usáis la orden « sudo usermod -a -G dialout [NOMBRE_USUARIO] » dentro de un terminal, donde [NOMBRE_USUARIO] lo cambiaréis por vuestro nombre de usuario.
+
+E) Para acabar la configuración hay que reiniciar vuestro ordenador o cerrar la sesión y volver a entrar.
+
+</trans>
   </tag>
 
   
@@ -61,6 +147,24 @@ A) Firstly select the COM port your Arduino is plugged into, there is often only
 B) Next select the model of your Arduino board. It should say the model name on the actual board itself.
 
 C) Finally click upload and wait for the 'Status of Upload' to say finished then move onto step 2</trans>
+<trans lang="ca">Abans d'utilitzar Arduino amb Scratch ens cal carregar algunes instruccions al nostre Arduino per tal que Scratch es pugui comunicar de forma neta. Fixeu-vos que si en el passat heu fet aquest pas amb Arduino no caldrà que el feu de nou (llevat que hagueu carregat codi diferent amb l'IDE des de la darrera vegada que heu gastat aquest programa) per això us cal anar directament al pas 2.
+
+INSTRUCCIONS
+
+A) Primer seleccioneu el port COM on heu connectat Arduino, normalment sols tindreu un port visible on tingueu Arduino. Si heu seleccionat el port COM erròni el programa no podrà carregar i intentarà esbrinar el port COM on està connectat Arduino.
+
+B) A continuació seleccioneu el model de la placa Arduino. Normalment sortirà el model de la placa actual.
+
+C) Finalment premeu carrega i espereu «Estat de la pujada» per acabar, després aneu al pas 2.</trans>
+<trans lang="es">Antes de utilizar Arduino con Scratch  hay que cargar algunas instrucciones en nuestro Arduino para que Scratch se pueda comunicar de forma limpia. Fijaos que si en el pasado habéis hecho este paso con Arduino no hará falta que lo hagáis de nuevo (salvo que hayáis cargado código diferente con el IDE desde la última vez que hayaís utilizado este programa) por eso hay que ir directamente al paso 2.
+
+INSTRUCCIONES
+
+A) Primero seleccionad el puerto COM dónde habéis conectado Arduino, normalmente sólo tendréis un puerto visible donde tengáis Arduino. Si habéis seleccionado el puerto COM erróneo el programa no podrá cargar e intentará averiguar el puerto COM donde está conectado Arduino.
+
+B) A continuación seleccionad el modelo de la placa Arduino. Normalmente saldrá el modelo de la placa actual.
+
+C) Finalmente pulsad carga y esperáis «Estado de la subida» para acabar, después vais al paso 2.</trans>
   </tag>  
 
   <tag name="Tab2ExplainText_MAC">
@@ -79,6 +183,36 @@ D) Now go again to the 'Tools' menu and then 'Board' and select the the model of
 E) Now on the Arduino window you will see some greenish coloured buttons. Hover your mouse over the second from the left. It should now say 'Upload', click it. 
 
 F) Wait for the Arduino program to say 'Done Uploading'. Then close the Arduino program and goto step 3.</trans>
+<trans lang="ca">Abans d'utilitzar Arduino amb Scratch ens cal carregar algunes instruccions al nostre Arduino per tal que Scratch es pugui comunicar de forma neta. Fixeu-vos que si en el passat heu fet aquest pas amb Arduino no caldrà que el feu de nou (llevat que hagueu carregat codi diferent amb l'IDE des de la darrera vegada que heu gastat aquest programa) per això us cal anar directament al pas 2.
+
+INSTRUCCIONS
+
+A) Primer seleccioneu el port on Arduino està connectat mostrat mes avall, normalment sols tindreu un port visible on tingueu Arduino. 
+
+B) A continuació premeu el botó «Inicia l'IDE d'Arduino» i espera que el programa es carregui.
+
+C) Entreu al programa Arduino i aneu al menú «Eines» i trieu «Port sèrie» i seleccioneu el port on Arduino està connectat, igual que al pas A.
+
+D) A continuació aneu de nou al menú «Eines» i «Placa» i seleccioneu el model de la vostra placa arduino. Normalment sortirà el model de la placa actual.
+
+E) Ara veuràs a la finestra Arduino alguns botons colorejats de verd. Passeu el cursor del ratolí sobre el segon des de l'esquerra. Hauria de dir «Carrega», premeu-lo. 
+
+F) Espereu que el programa Arduino et mostri «Carga feta». Llavors tanqueu el programa Arduino i aneu al pas 3.</trans>
+<trans lang="es">Antes de utilizar Arduino con Scratch  hay que cargar algunas instrucciones en nuestro Arduino para que Scratch se pueda comunicar de forma limpia. Fijaos que si en el pasado habéis hecho este paso con Arduino no hará falta que lo hagáis de nuevo (salvo que hayáis cargado código diferente con el IDE desde la última vez que hayaís utilizado este programa) por eso hay que ir directamente al paso 2.
+
+INSTRUCCIONES
+
+A) Primero seleccionad el puerto donde Arduino está conectado mostrado mes abajo, normalmente sólo tendréis un puerto visible donde tengáis Arduino. 
+
+B) A continuación pulsad el botón «Inicia el IDE de Arduino» y espera que el programa se cargue.
+
+C) Entrad al programa Arduino y vais al menú «Herramientas» y elegís «Puerto serie» y seleccionáis el puerto donde Arduino está conectado, igual que al paso A.
+
+D) A continuación vais de nuevo al menú «Herramientas» y «Placa» y seleccionáis el modelo de vuestra placa arduino. Normalmente saldrá el modelo de la placa actual.
+
+E) Ahora verás en la ventana Arduino algunos botones coloreados de verde. Pasáis el cursor del ratón sobre el segundo desde la izquierda. Tendría que decir «Carga», pulsadlo. 
+
+F) Esperad que el programa Arduino os muestre «Carga hecha». Entonces cerráis el programa Arduino y vais al paso 3.</trans>
   </tag>
   <tag name="Tab2ExplainText_LIN">
     <trans lang="en">Before we can use Arduino in Scratch we must upload some instructions to our Arduino so Scratch can communicate with the Arduino properly. Note if you have already done this step in the past with the Arduino you currently have plugged in you do not need to do it again (unless you have uploaded some different code to it since you last used this program) so you can go straight to step 2.
@@ -96,6 +230,36 @@ D) Now go again to the 'Tools' menu and then 'Board' and select the the model of
 E) Now on the Arduino window you will see some greenish coloured buttons. Hover your mouse over the second from the left. It should now say 'Upload', click it. 
 
 F) Wait for the Arduino program to say 'Done Uploading'. Then close the Arduino program and goto step 3.</trans>
+<trans lang="ca">Abans d'utilitzar Arduino amb Scratch ens cal carregar algunes instruccions al nostre Arduino per tal que Scratch es pugui comunicar de forma neta. Fixeu-vos que si en el passat heu fet aquest pas amb Arduino no caldrà que el feu de nou (llevat que hagueu carregat codi diferent amb l'IDE des de la darrera vegada que heu gastat aquest programa) per això us cal anar directament al pas 2..
+
+INSTRUCCIONS
+
+A) Primer seleccioneu el port on Arduino està connectat mostrat mes avall, normalment sols tindreu un port visible on tingueu Arduino. 
+
+B) A continuació premeu el botó «Inicia l'IDE d'Arduino» i espera que el programa es carregui.
+
+C) Entreu al programa Arduino i aneu al menú «Eines» i trieu «Port sèrie» i seleccioneu el port on Arduino està connectat, igual que al pas A.
+
+D) A continuació aneu de nou al menú «Eines» i «Placa» i seleccioneu el model de la vostra placa arduino. Normalment sortirà el model de la placa actual.
+
+E) Ara veuràs a la finestra Arduino alguns botons colorejats de verd. Passeu el cursor del ratolí sobre el segon des de l'esquerra. Hauria de dir «Carrega», premeu-lo. 
+
+F) Espereu que el programa Arduino et mostri «Carga feta». Llavors tanqueu el programa Arduino i aneu al pas 3.</trans>
+<trans lang="es">Antes de utilizar Arduino con Scratch  hay que cargar algunas instrucciones en nuestro Arduino para que Scratch se pueda comunicar de forma limpia. Fijaos que si en el pasado habéis hecho este paso con Arduino no hará falta que lo hagáis de nuevo (salvo que hayáis cargado código diferente con el IDE desde la última vez que hayaís utilizado este programa) por eso hay que ir directamente al paso 2.
+
+INSTRUCCIONES
+
+A)  Primero seleccionad el puerto donde Arduino está conectado mostrado mes abajo, normalmente sólo tendréis un puerto visible donde tengáis Arduino. 
+
+B) A continuación pulsad el botón «Inicia el IDE de Arduino» y espera que el programa se cargue.
+
+C) Entrad al programa Arduino y vais al menú «Herramientas» y elegís «Puerto serie» y seleccionáis el puerto donde Arduino está conectado, igual que al paso A.
+
+D) A continuación vais de nuevo al menú «Herramientas» y «Placa» y seleccionáis el modelo de vuestra placa arduino. Normalmente saldrá el modelo de la placa actual.
+
+E) Ahora verás en la ventana Arduino algunos botones coloreados de verde. Pasáis el cursor del ratón sobre el segundo desde la izquierda. Tendría que decir «Carga», pulsadlo. 
+
+F) Esperad que el programa Arduino os muestre «Carga hecha». Entonces cerráis el programa Arduino y vais al paso 3.</trans>
   </tag>
 
   <tag name="Tab3ExplainText">
@@ -109,189 +273,329 @@ B) Now click Start Helper App and wait for 'Status of Helper App' to say 'Starte
 
 C) Now open Scratch. To load the Arduino blocks into scratch please open the ImportBlocks.sb2 file in Scratch (which can be found in the examples folder within the A4S program folder). 
 This can be done by going To File->Open in the offline Scratch Editor Or by File->'Upload from your Computer' in the online editor. (You will have to click the dropdown in the bottom right and select Scratch 2 Project to be able to see the ImportBlocks.sb2 file)</trans>
+<trans lang="ca">Ara necessitem iniciar l'aplicació d'ajuda que comunica entre Arduino i Scratch. Aquesta aplicació cal que funcioni tot el temps mentre esteu usant Arduino amb Scratch.
+
+INSTRUCCIONS 
+
+A) Com al pas 2, seleccioneu el port COM / ttyACMx al qual està connectat Arduino, normalment sols es mostra el port on està connectat Arduino. 
+
+B) A continuació premeu el botó «Inicia l'aplicació d'ajuda» i espereu que l'«Estat de l'aplicació d'ajuda» mostre «Iniciat!»'
+
+C) Ara obriu Scratch. Per carregar els blocs d'Arduino dins de Scratch obriu el fitxer ImportBlocks.sb2 amb Scratch (el qual es pot trobar a la carpeta exemples del programa A4S). 
+Això es pot fer anant a Fitxer->Obre a l'editor Scratch fora de línia o bé   Fitxer->«Carrega des de l'ordinador» a l'editor en línia. (Tindreu que prémer al menú desplegable a la part inferior dreta i seleccionar «Projecte de Scratch2» per poder veure el fitxer ImportBlocks.sb2 )</trans>
+<trans lang="es">Ahora necesitamos iniciar la aplicación de ayuda que comunica entre Arduino y Scratch. Esta aplicación hace falta que funcione todo el tiempo mientras estáis usando Arduino con Scratch.
+
+INSTRUCCIONES 
+
+A) Cómo en el paso 2, seleccionad el puerto COM / ttyACMx al cual está conectado Arduino, normalmente sólo se muestra el puerto donde está conectado Arduino. 
+
+B) A continuación pulsad el botón «Inicia la aplicación de ayuda» y esperáis que el «Estado de la aplicación de ayuda» muestre «Iniciada!»
+
+C) Ahora abrid Scratch. Para cargar los bloques de Arduino dentro de Scratch abrid el fichero Importblocks.sb2 con Scratch (el cual se puede encontrar en la carpeta ejemplos del programa A4S). 
+Esto se puede hacer yendo a Fichero->Abre al editor Scratch fuera de línea o bien Fichero->«Carga desde el ordenador» al editor en linea. (Tendréis que pulsar al menú desplegable en la parte inferior derecha y seleccionar «Proyecto de Scratch2» para poder ver el fichero Importblocks.sb2 )</trans>
   </tag> 
 
   <tag name="AppTitle">
     <trans lang="en">Arduino Scratch Server Starter</trans>
+    <trans lang="ca">Servidor d'inici de Scratch Arduino</trans>
+    <trans lang="es">Servidor de inicio de Scratch Arduino</trans>
   </tag>  
   <tag name="AppLogTitle">
     <trans lang="en">Debug Log</trans>
+    <trans lang="ca">Registre de depuració</trans>
+    <trans lang="es">Registro de depuración</trans>
   </tag>  
   <tag name="AboutApp">
     <trans lang="en">This is an application that handles automatically all the complicated parts of using Arduino with Scratch</trans>
+    <trans lang="ca">Aquesta és una aplicació que s'encarrega d'automatitzar totes les parts complicades usant Arduino amb Scratch</trans>
+    <trans lang="es">Esta es una aplicación que se encarga de automatizar todas las partes complicadas usando Arduino con Scratch</trans>
   </tag>  
   <tag name="DevWeb">
     <trans lang="en">Developers personal website</trans>
+    <trans lang="ca">Web personal dels desenvolupadors</trans>
+    <trans lang="es">Web personal de los desarrolladores</trans>
   </tag>  
 
 
   <tag name="TabStep">
     <trans lang="en">Step</trans>
+    <trans lang="ca">Pas</trans>
+    <trans lang="es">Paso</trans>
   </tag> 
   <tag name="Tab1_WIN">
     <trans lang="en">Arduino Driver</trans>
+    <trans lang="ca">Controlador Arduino</trans>
+    <trans lang="es">Controlador Arduino</trans>
   </tag>  
   <tag name="Tab1_MAC">
     <trans lang="en">Arduino Installation</trans>
+    <trans lang="ca">Instal·lació d'Arduino</trans>
+    <trans lang="es">Instalación de Arduino</trans>
   </tag>  
   <tag name="Tab1_LIN">
     <trans lang="en">Setup</trans>
+    <trans lang="ca">Configuració</trans>
+    <trans lang="es">Configuración</trans>
   </tag>  
   <tag name="Tab2">
     <trans lang="en">Uploading</trans>
+    <trans lang="ca">Pujant</trans>
+    <trans lang="es">Cargando</trans>
   </tag>    
   <tag name="Tab3">
     <trans lang="en">Start Server</trans>
+    <trans lang="ca">Inicia servidor</trans>
+    <trans lang="es">Inicia servidor</trans>
   </tag>      
 
 
   <tag name="BaudRate">
     <trans lang="en">Baud Rate: </trans>
+    <trans lang="ca">Velocitat en bauds: </trans>
+    <trans lang="es">Velocidad en baudios: </trans>
   </tag>     
   <tag name="Port">
     <trans lang="en">Port: </trans>
+    <trans lang="ca">Port: </trans>
+    <trans lang="es">Puerto: </trans>
   </tag>  
   <tag name="Refresh">
     <trans lang="en">Refresh</trans>
+    <trans lang="ca">Refresca</trans>
+    <trans lang="es">Refresca</trans>
   </tag>  
   <tag name="Board">
     <trans lang="en">Board: </trans>
+    <trans lang="ca">Placa: </trans>
+    <trans lang="es">Placa: </trans>
   </tag>  
   <tag name="UploadStatus_WIN">
     <trans lang="en">Status of Upload: </trans>
+    <trans lang="ca">Estat de la pujada: </trans>
+    <trans lang="es">Estado de la carga: </trans>
   </tag>    
   <tag name="UploadStatus_MAC">
     <trans lang="en">Status of Arduino IDE: </trans>
+    <trans lang="ca">Estat del IDE d'Arduino: </trans>
+    <trans lang="es">Estado del IDE de Arduino: </trans>
   </tag>    
   <tag name="UploadStatus_LIN">
     <trans lang="en">Status of Arduino IDE: </trans>
+    <trans lang="ca">Estat del IDE d'Arduino: </trans>
+    <trans lang="es">Estado del IDE de Arduino: </trans>
   </tag>   
   <tag name="HelperStatus">
     <trans lang="en">Status of Helper App: </trans>
+    <trans lang="ca">Estat de l'aplicació d'ajuda: </trans>
+    <trans lang="es">Estado de la aplicación de ayuda: </trans>
   </tag>  
 
 
   <tag name="MenuQuit">
     <trans lang="en">&amp;Quit</trans>
+    <trans lang="ca">&amp;Tanca</trans>
+    <trans lang="es">&amp;Cierra</trans>
   </tag>
   <tag name="MenuDebugLog">
     <trans lang="en">&amp;Debug Log</trans>
+    <trans lang="ca">&amp;Registre de depuració</trans>
+    <trans lang="es">&amp;Registro de depuración</trans>
   </tag>
   <tag name="MenuFile">
     <trans lang="en">&amp;File</trans>
+    <trans lang="ca">&amp;Fitxer</trans>
+    <trans lang="es">&amp;Fichero</trans>
   </tag>
   <tag name="MenuView">
     <trans lang="en">&amp;View</trans>
+    <trans lang="ca">&amp;Visualitza</trans>
+    <trans lang="es">&amp;Muestra</trans>
   </tag>
   <tag name="MenuAbout">
     <trans lang="en">&amp;About</trans>
+    <trans lang="ca">&amp;Quant a</trans>
+    <trans lang="es">&amp;Sobre</trans>
   </tag>  
   <tag name="MenuTAdvOpt">
     <trans lang="en">Toggle Advanced &amp;Options</trans>
+    <trans lang="ca">Commuta &amp;opcions avançades</trans>
+    <trans lang="es">Cambia a &amp;opciones avanzadas</trans>
   </tag>   
+  <tag name="MenuLanguage">
+    <trans lang="en">&amp;Language</trans>
+    <trans lang="ca">&amp;Llenguatge</trans>
+    <trans lang="es">&amp;Idioma</trans>
+  </tag>
 
   <tag name="ButtonUpload_WIN">
     <trans lang="en">Start Upload</trans>
+    <trans lang="ca">Inicia la pujada</trans>
+    <trans lang="es">Inicia la carga</trans>
   </tag>    
   <tag name="ButtonUpload_MAC">
     <trans lang="en">Start Arduino IDE</trans>
+    <trans lang="ca">Inicia IDE d'Arduino</trans>
+    <trans lang="es">Inicia IDE de Arduino</trans>
   </tag>    
   <tag name="ButtonUpload_LIN">
     <trans lang="en">Start Arduino IDE</trans>
+    <trans lang="ca">Inicia IDE d'Arduino</trans>
+    <trans lang="es">Inicia IDE de Arduino</trans>
   </tag>    
   <tag name="ButtonFinished_WIN">
     <trans lang="en">Finished Upload. Upload Again?</trans>
+    <trans lang="ca">Pujada acabada. Pujada de nou?</trans>
+    <trans lang="es">Carga terminada. ¿Cargas de nuevo?</trans>
   </tag>     
   <tag name="ButtonFinished_MAC">
     <trans lang="en">Start Arduino IDE Again?</trans>
+    <trans lang="ca">Inicies IDE d'Arduino de nou?</trans>
+    <trans lang="es">¿Inicias IDE de Arduino de nuevo?</trans>
   </tag>     
   <tag name="ButtonFinished_LIN">
     <trans lang="en">Start Arduino IDE Again?</trans>
+    <trans lang="ca">Inicies IDE d'Arduino de nou?</trans>
+    <trans lang="es">¿Inicias IDE de Arduino de nuevo?</trans>
   </tag>     
   <tag name="ButtonStop">
     <trans lang="en">Stop</trans>
+    <trans lang="ca">Atura</trans>
+    <trans lang="es">Para</trans>
   </tag> 
   <tag name="ButtonStartHelper">
     <trans lang="en">Start Helper App</trans>
+    <trans lang="ca">Inicia l'aplicació d'ajuda</trans>
+    <trans lang="es">Inicia la aplicación de ayuda</trans>
   </tag> 
 
   <tag name="ErrorPortBoard">
     <trans lang="en">Please Select a Port and Board</trans>
+    <trans lang="ca">Selecciona port i placa</trans>
+    <trans lang="es">Selecciona puerto y placa</trans>
   </tag>  
   <tag name="ErrorClose_WIN">
     <trans lang="en">Closing now may cause damage to your Arduino if you do not wait for it to finish. Do you still wish to close?</trans>
+    <trans lang="ca">Tancar ara pot provocar danys a Arduino si no espereu que acabi. De veritat voleu tancar-lo?</trans>
+    <trans lang="es">Cerrar ahora puede provocar daños en Arduino si no esperas que acabe. ¿De verdad quieres cerrarlo?</trans>
   </tag>  
   <tag name="ErrorClose_MAC">
     <trans lang="en">Closing now will close the Arduino IDE. Do you still wish to close?</trans>
+    <trans lang="ca">Tancar ara tancarà l'IDE d'Arduino. De veritat voleu tancar-lo?</trans>
+    <trans lang="es">Cerrar ahora terminará el IDE de Arduino.  ¿De verdad quieres cerrarlo?</trans>
   </tag>  
   <tag name="ErrorClose_LIN">
     <trans lang="en">Closing now will close the Arduino IDE. Do you still wish to close?</trans>
+    <trans lang="ca">Tancar ara tancarà l'IDE d'Arduino. De veritat voleu tancar-lo?</trans>
+    <trans lang="es">Cerrar ahora terminará el IDE de Arduino.  ¿De verdad quieres cerrarlo?</trans>
   </tag> 
   <tag name="ErrorPort">
     <trans lang="en">Please Select a Port</trans>
+    <trans lang="ca">Selecciona un port</trans>
+    <trans lang="es">Selecciona un puerto</trans>
   </tag>  
   <tag name="ErrorHelperStart">
     <trans lang="en">Helper App could not start.</trans>
+    <trans lang="ca">L'aplicació d'ajuda no s'inicia.</trans>
+    <trans lang="es">La aplicación de ayuda no se inicia.</trans>
   </tag>  
   <tag name="ErrorArduinoUploader">
     <trans lang="en">ArduinoUploader could not start.</trans>
+    <trans lang="ca">El cargador d'Arduino no pot iniciar-se.</trans>
+    <trans lang="es">El cargador de Arduino no puede iniciarse.</trans>
   </tag>  
   <tag name="ErrorTitle">
     <trans lang="en">Error</trans>
+    <trans lang="ca">Error</trans>
+    <trans lang="es">Error</trans>
   </tag>  
   <tag name="QuestionTitle">
     <trans lang="en">Question</trans>
+    <trans lang="ca">Qüestió</trans>
+    <trans lang="es">Pregunta</trans>
   </tag>
   <tag name="ErrorGenArduinoCode">
     <trans lang="en">Failed to generate Firmata code</trans>
+    <trans lang="ca">Errada en generar el codi microprogramari</trans>
+    <trans lang="es">Error al generar el codigo firmware</trans>
   </tag>  
   <tag name="ErrorInstallIDE_MAC">
     <trans lang="en">Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)</trans>
+    <trans lang="ca">Instal·leu el IDE d'Arduino a la carpeta d'aplicacions  (http://arduino.cc/en/Main/Software)</trans>
+    <trans lang="es">Instalad el IDE de Arduino en la carpeta de aplicaciones  (http://arduino.cc/en/Main/Software)</trans>
   </tag>  
   <tag name="ErrorFindScratchFiles">
     <trans lang="en">Cannot find Scratch Files.</trans>
+    <trans lang="ca">No es poden trobar fitxers de Scratch.</trans>
+    <trans lang="es">No se pueden encontrar ficheros de Scratch.</trans>
   </tag>  
   <tag name="ErrorCopyScratchFiles">
     <trans lang="en">Cannot copy Scratch Files.</trans>
+    <trans lang="ca">No es poden copiar fitxers de Scratch.</trans>
+    <trans lang="es">No se pueden copiar ficheros de Scratch.</trans>
   </tag>    
   
 
   <tag name="StatusNotStarted">
     <trans lang="en">Not Started Yet</trans>
+    <trans lang="ca">Encara no ha començat</trans>
+    <trans lang="es">Todavía no ha empezado</trans>
   </tag>   
   <tag name="StatusStopped">
     <trans lang="en">Stopped</trans>
+    <trans lang="ca">Aturat</trans>
+    <trans lang="es">Parado</trans>
   </tag>   
   <tag name="StatusStoppedUser">
     <trans lang="en">Stopped By User</trans>
+    <trans lang="ca">Aturat per l'usuari</trans>
+    <trans lang="es">Parado por el usuario</trans>
   </tag>   
   <tag name="StatusError">
     <trans lang="en">Error (see log)</trans>
+    <trans lang="ca">Error (mireu el registre)</trans>
+    <trans lang="es">Error (mirad el registro)</trans>
   </tag>   
   <tag name="StatusFinished">
     <trans lang="en">Finished</trans>
+    <trans lang="ca">Acabat</trans>
+    <trans lang="es">Terminado</trans>
   </tag>   
   <tag name="StatusUploading">
     <trans lang="en">Uploading...</trans>
+    <trans lang="ca">S'està pujant...</trans>
+    <trans lang="es">Subiendo...</trans>
   </tag>   
   <tag name="StatusCompiling">
     <trans lang="en">Compiling...</trans>
+    <trans lang="ca">S'està compilant...</trans>
+    <trans lang="es">Compilando...</trans>
   </tag>     
   <tag name="StatusStarted">
     <trans lang="en">Started!</trans>
+    <trans lang="ca">Iniciat!</trans>
+    <trans lang="es">¡Iniciado!</trans>
   </tag>   
   <tag name="StatusStartedNormal">
     <trans lang="en">Started</trans>
+    <trans lang="ca">Iniciat</trans>
+    <trans lang="es">Iniciado</trans>
   </tag>   
   <tag name="StatusStarting">
     <trans lang="en">Starting...</trans>
+    <trans lang="ca">S'està iniciant...</trans>
+    <trans lang="es">Iniciando...</trans>
   </tag>  
 
   <tag name="NoProductName">
     <trans lang="en">[No Product Name]</trans>
+    <trans lang="ca">[Nre de nom de producte]</trans>
+    <trans lang="es">[No nombre de producto]</trans>
   </tag>  
 
-
-
+  <tag name="RestartMessage">
+    <trans lang="en">Please restart to update language</trans>
+    <trans lang="ca">Si us plau, reinicieu per actualitzar el llenguatge</trans>
+    <trans lang="es">Por favor, reinicie para actualizar el lenguaje</trans>
+  </tag>
 
 </locale>
